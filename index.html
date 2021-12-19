@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Clover Rescue Project</title>
+        <link rel = 'stylesheet' href = 'index.css'/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id = 'heading'>
+            <img id = 'background' src = './assets/head.jpg' />
+            <p onclick = 'document.getElementById("p").scrollIntoView({block: "center", behavior: "smooth"});' class = 'menu' id = 'm1'>Project</p>
+            <p onclick = 'document.getElementById("rh").scrollIntoView({block: "center", behavior: "smooth"});' class = 'menu' id = 'm2'>Hardware</p>
+            <p onclick = 'document.getElementById("password").scrollIntoView({block: "center", behavior: "smooth"});' class = 'menu' id = 'm3'>Sign Up</p>
+            <button id = 'login' onclick = "location.href = './login'">Sign In</button>
+            <button id = 'app' onclick = "location.href = './app'">Go to app</button>
+            <h1 id='title'>The Clover Rescue Project</h1>
+            <img id = 'down' src = './assets/line-angle-down.svg'/>
+        </div>
+        <div id = 'main'>
+            <img id = 'mb1' src = './assets/mb1.jpg' />
+            <p id = 'pt' ><b>Project</b></p>
+            <p id = 'p'>Our project was created in order to help pilots return their flew away drones!<br/><br/><u> So, how it works? </u><br/><br/>Having installed the necessary hardware and software on the drone, you can go to our website and be able to monitor the state of the drone and return it home with one click, even if the radio connection is completely lost! <br/>Moreover, in the event of an emergency situation, our software will determine it and offer options for further actions.</p><br/><br/><br/>
+            <img id = 'mb2' src = './assets/rpi4.png'/>
+            <img id = 'mb3' src = './assets/rpicamera.png'/>
+            <img id = 'mb4' src = './assets/modem.png'/>
+            <p id = 'rht' >Required Hardware</p>
+            <p id = 'rh'>
+                The all you need - Raspberry Pi 3/4, camera and USB WIFI Modem! 
+            </p>
+            <p id = 'rt' >Sign up</p><br/><p id = 'rt2'>to get The Clover Rescue Project software for free!</p>
+            <input placeholder='Nickname' id = 'nickname'/>
+            <input placeholder='Password' id = 'password' type='password'/>
+            <button id = 'signup' onclick = 'signup();'>Sign Up</button>
+            <p id = 'status'></p>
+            <p id = 'floor'>Clover Rescue Team | CopterHack 2022</p>
+        </div>
+        <img id = 'arrowtop' src = './assets/line-angle-down.svg' onclick="smoothJumpUp();"/>
+        <script src = 'index.js'></script>
+    </body>
+</html>
