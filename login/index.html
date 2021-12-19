@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Clover Rescue Project</title>
+        <link rel = 'stylesheet' href = 'login.css'/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <p id = 'title'>Sign In</p>
+        <input placeholder='Nickname' id = 'nickname'/>
+        <input placeholder='Password' id = 'password' type='password'/>
+        <button id = 'signin' onclick = 'signin();'>Sign In</button>
+        <p id = 'status'></p>
+        <script src = "login.js"></script>
+    </body>
+</html>

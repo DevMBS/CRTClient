@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+body{
+    background-color: black;
+    color:rgb(255, 239, 215);
+    margin: 0;
+    scroll-behavior: smooth;
+}
+input, button{
+    outline:none;
+    border-width: 4px;
+    border-style:solid;
+    border-color:rgb(255, 239, 215);
+    color: rgb(255, 239, 215);
+    background-color: black;
+    border-radius: 40px;
+    width: 20%;
+    position: absolute;
+    font-size: 200%;
+    font-family: 'Roboto', sans-serif;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#nickname{
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    top: 30%;
+}
+#password{
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    top: 40%;
+}
+#signin{
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+#title{
+    font-size: 400%;
+    font-family: 'Quicksand', sans-serif;
+    text-align:center;
+}
+#status{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
