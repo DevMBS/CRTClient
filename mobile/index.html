@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Clover Rescue Project</title>
+        <script>function gcd(a, b){return(b==0)?a:gcd(b,a%b);} w=screen.width;h=screen.height;r=gcd(w,h);if(w/r>=h/r){location.href="../"}</script>
+        <link rel = "stylesheet" href = "index.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <img src = "../assets/rpi4.png" id = "rpi" />
+        <div id = 'title1'></div>
+        <button id = 'app' onclick = "location.href = '../app/index.html'">Go to app</button><button id = 'signin' onclick = "location.href = '../login/index.html'">Sign In</button>
+        <div id = 'title2'><h1>The<br/>Clover Rescue<br/>Project</h1></div>
+        <img id = "clover" src = "../assets/head.jpg"/>
+        <div id = "footer"><img src = "../assets/line-angle-down.svg" id = "down"/></div>
+        <div id = "main">
+            <p id = 'pt'>Project</p><p id = 'p'>Our project was created in order to help pilots return their flew away drones!<br/><br/><u> So, how it works? </u><br/><br/>Having installed the necessary hardware and software on the drone, you can go to our website and be able to monitor the state of the drone and return it home with one click, even if the radio connection is completely lost! <br/>Moreover, in the event of an emergency situation, our software will determine it and offer options for further actions.</p>
+            <p id = "rht">Required Hardware</p><p id = "rh">The all you need - Raspberry Pi 3/4, camera and USB WIFI Modem! </p>
+            <p id = 'rt' >Sign up</p><br/><p id = 'rt2'>to access the software</p>
+            <input placeholder='Nickname' id = 'nickname'/>
+            <input placeholder='Password' id = 'password' type='password'/>
+            <button id = 'signup' onclick = 'signup();'>Sign Up</button>
+            <p id = 'status'></p>
+            <p id = 'floor'>Clover Rescue Team | CopterHack 2022</p>
+        </div>
+        <script src = 'index.js'></script>
+    </body>
+</html>

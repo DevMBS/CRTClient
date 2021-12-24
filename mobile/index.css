@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+body{
+    background-color: black;
+    color:rgb(255, 239, 215);
+    margin: 0;
+    scroll-behavior: smooth;
+}
+#rpi{
+    position: absolute;
+    height: 35%;
+    width: 100%;
+    filter: brightness(30%) blur(5px);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 10%);
+    
+}
+#title1{
+    position: absolute;
+    clip-path: polygon(0% 10%, 100% 80%, 100% 100%, 0% 100%);
+    background-color: #111;
+    width: 100%;
+    height: 30%;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 400%;
+    text-align: center;
+}
+#title2{
+    position: absolute;
+    background-color: #111;
+    width: 100%;
+    height: 71%;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 400%;
+    top: 29%;
+    text-align: center;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 0% 60%);
+}
+#clover{
+    position: absolute;
+    top: 71%;
+    width: 100%;
+    height: 25%;
+    filter: brightness(30%) blur(5px);
+    clip-path: polygon(0% 0%, 100% 70%, 100% 100%, 0% 100%);
+}
+#down{
+    filter: invert(100%);
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+#footer{
+    position: absolute;
+    height: 2%;
+    width: 100%;
+    top: 98%;
+    box-shadow: 0 -50px 80px black;
+    color: #000;
+}
+p{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+#pt{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 600%;
+    top: 120%;
+}
+#p{
+    font-size: 240%;
+    font-family: 'Roboto', sans-serif;
+    top: 160%;
+    background-color: #111;
+    clip-path: polygon(0% 20%, 100% 40%, 100% 100%, 0% 80%);
+    padding-top: 90%;
+    padding-bottom: 60%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+#rht{
+    font-size: 600%;
+    font-family: 'Quicksand', sans-serif;
+    top: 220%;
+}
+#rh{
+    font-size: 240%;
+    font-family: 'Roboto', sans-serif;
+    top: 260%;
+    background-color: #111;
+    padding-top: 30%;
+    padding-bottom: 30%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+#rt{
+    font-size: 600%;
+    font-family: 'Quicksand', sans-serif;
+    top: 320%;
+}
+#rt2{
+    font-size: 400%;
+    font-family: 'Quicksand', sans-serif;
+    top: 330%;
+}
+input, #signup{
+    outline:none;
+    border-width: 4px;
+    border-style:solid;
+    border-color:rgb(255, 239, 215);
+    color: rgb(255, 239, 215);
+    background-color: black;
+    border-radius: 50px;
+    width: 80%;
+    position: absolute;
+    font-size: 400%;
+    font-family: 'Roboto', sans-serif;
+    padding-left: 15px;
+    padding-right: 15px;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+#nickname{
+    top: 360%;
+}
+#password{
+    top: 375%;
+}
+#signup{
+    top: 390%;
+}
+#status{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    top: 400%;
+    font-size: 240%;
+    color: red;
+    font-family: 'Roboto', sans-serif;
+}
+#floor{
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    top: 420%;
+    font-size: 150%;
+    font-family: 'Roboto', sans-serif;
+}
+#signin, #app{
+    border: none;
+    width: 50%;
+    font-size: 300%;
+    outline:none;
+    color: rgb(255, 239, 215);
+    background-color: #111;
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+#app{
+    right: 0;
+}
