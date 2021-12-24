@@ -27,7 +27,35 @@ window.onscroll = function() {
 
 function signup(){
     document.querySelector('#signup').style.display = 'none';
-    socket.emit('signup', {nickname: document.getElementById('nickname').value, password: document.getElementById('password').value});
+    const forbchars = '!@#$%^&*(){}[]:;"\'\\/<>?`~№+=';
+    let i = 0;
+    function csc(el){
+        document.getElementById(el).value.split('').forEach(char => {
+            if(forbchars.includes(char)){
+                TweenMax.to('#'+el, 0.1, {x:"+=20", yoyo:true, repeat:5});
+                document.querySelector('#status').innerText = 'Please enter a username without special characters like !@#$%^&*';
+                document.querySelector('#signup').style.display = 'block';
+                document.getElementById(el).value = '';
+                i += 1;
+            }
+        });
+    }
+    if(document.getElementById('nickname').value == '' || document.getElementById('password').value == ''){
+        if(document.getElementById('nickname').value == ''){
+            TweenMax.to('#nickname', 0.1, {x:"+=20", yoyo:true, repeat:5});
+        }
+        else{
+            TweenMax.to('#password', 0.1, {x:"+=20", yoyo:true, repeat:5});
+        }
+        document.querySelector('#status').innerText = 'Please complete all of fields!';
+        document.querySelector('#signup').style.display = 'block';
+    }
+    else{
+        csc("nickname");
+        if(i == 0){
+            socket.emit('signup', {nickname: document.getElementById('nickname').value.toLowerCase(), password: document.getElementById('password').value});
+        }
+    }
 }
 socket.on('signupres', (res) => {
     if(res.body == 'error'){
