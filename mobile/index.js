@@ -2,6 +2,9 @@ const socket = io();
 window.onload = function(){
     TweenMax.to('#down', 0.6, {y:"-=20", yoyo:true, repeat:9999});
 }
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./serviceworker.js');
+}
 function signup(){
     document.querySelector('#signup').style.display = 'none';
     socket.emit('signup', {nickname: document.getElementById('nickname').value, password: document.getElementById('password').value});
