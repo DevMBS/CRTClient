@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+body{
+    background-color: black;
+    color:rgb(255, 239, 215);
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+#map{
+    width: 40%;
+}
+#photo{
+    position: absolute;
+    top: 40%;
+    width: 40%;
+    height: 60%;
+    background-color: #111;
+}
+#pt{
+    position: absolute;
+    font-family: 'Quicksand', sans-serif;
+    top: 40%;
+    font-size: 200%;
+}
+#snp{
+    text-align: center;
+    margin-top: 30%;
+    font-size: 150%;
+}
+button{
+    outline: none;
+    cursor: pointer;
+    color: rgb(255, 239, 215);
+    font-family: 'Roboto', sans-serif;
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 5px;
+    padding: 4%;
+    background-color: #111;
+    position: absolute;
+    font-size: 160%;
+}
+#gp{
+    padding: 1%;
+    position: relative;
+    background-color:black;
+    border: none;
+    width: 30%;
+    font-size: 150%;
+}
+#ct{
+    position: absolute;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 300%;
+    top: 0%;
+    right: 2%;
+}
+#clover3dview{
+    position: absolute;
+    left: 40%;
+    top: 0%;
+    width: 40%;
+    height: 40%;
+}
+#status{
+    color:rgb(0, 255, 136);
+    position: absolute;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 200%;
+    top: 11%;
+    right: 3%;
+    text-align: right;
+}
+#alt{
+    position: absolute;
+    top: 30%;
+    left: 55%;
+    font-size: 150%;
+}
+#actions{
+    position: absolute;
+    top: 40%;
+    right: 0%;
+    height: 60%;
+    width: 20%;
+}
+#rtp{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    font-size: 114%;
+    width: 49%;
+    right: 0%;
+    border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
+}
+#l{
+    width: 49%;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+}
+#r{
+    width: 49%;
+    text-align: center;
+    top:20%;
+    right: 0%;
+    border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
+}
+#h{
+    width: 49%;
+    text-align: center;
+    top:20%;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+}
+#settings{
+    width: 100%;
+    top: 40%;
+    border-image-source: linear-gradient(to left, #3ad0d5, #d53a9d);
+}
+#upload{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 40%;
+    height: 60%;
+}
+#mission{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+#fl{
+    position: absolute;
+    top: 27%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    background-color:#111;
+    cursor: pointer;
+    color: rgb(255, 239, 215);
+    font-family: 'Roboto', sans-serif;
+    padding: 4%;
+    position: absolute;
+    font-size: 180%;
+    background: linear-gradient(to top right, #3ad0d5, #d53a9d);
+    width: 27.8%;
+}
+#ut{
+    position: absolute;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 270%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+#ub{
+    width: 100%;
+    top: 44%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    border-image-source: linear-gradient(to bottom right, #3ad0d5, #d53a9d);
+    width: 35.7%;
+}
