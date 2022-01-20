@@ -66,6 +66,6 @@ socket.on('signupres', (res) => {
     }
     else if(res.body == 'successful'){
         localStorage.setItem('uid', res.uid);
-        location.href = './app';
+        location.href = './app/desktop/';
     }
 });
