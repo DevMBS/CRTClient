@@ -1,4 +1,5 @@
 'use strict';
+'X-Content-Type-Options: nosniff';
 //three js lib import
 import * as THREE from '../../assets/three.js';
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
