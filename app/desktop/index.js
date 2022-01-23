@@ -3,7 +3,7 @@
 import * as THREE from '../../assets/three.js';
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
 //sockets init
-const socket = io({transports: ['websocket']});
+const socket = io();
 //socket io uploader init
 const uploader = new SocketIOFileUpload(socket);
 if(localStorage.getItem('uid') == null){
