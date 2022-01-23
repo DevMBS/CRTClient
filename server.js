@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const multer  = require("multer");
 const server = require("http").createServer(app);
-const io = require("socket.io")(server, {transports: ['websocket']});
+const io = require("socket.io")(server);
 require("pidcrypt/seedrandom");
 const pidCrypt = require("pidcrypt");
 require("pidcrypt/aes_cbc");
