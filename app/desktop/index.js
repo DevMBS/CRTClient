@@ -101,7 +101,15 @@ document.getElementById('settingslist').style.display = 'none';
 const resizemap = setInterval(function(){
   document.getElementById('map').style.height = String(0.4*window.innerHeight)+'px';
 }, 100);
+let usermarker;
 const map = L.map('map');
+const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmxldGNobGluZyIsImEiOiJja3hseWd2bjQxdGxrMndrajJnMmw5aXFwIn0.d1GSdCVDX_vDi_V_Svs-lQ', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/outdoors-v11',
+    tileSize: 512,
+    zoomOffset: -1
+}).addTo(map);
 const options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -110,15 +118,8 @@ const options = {
 function success(pos) {
   const crd = pos.coords;
   map.setView([crd.latitude, crd.longitude], 30);
-  const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmxldGNobGluZyIsImEiOiJja3hseWd2bjQxdGxrMndrajJnMmw5aXFwIn0.d1GSdCVDX_vDi_V_Svs-lQ', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox/outdoors-v11',
-    tileSize: 512,
-    zoomOffset: -1
-}).addTo(map);
   //setiting 'you' marker on map and getting user's coords
-  let usermarker = L.marker([crd.latitude, crd.longitude]).addTo(map);
+  usermarker = L.marker([crd.latitude, crd.longitude]).addTo(map);
   usermarker.bindPopup("You");
 };
 function error(err) {
@@ -133,7 +134,7 @@ $('#mission').change(function() {
 
 //send photo onclick
 $("#gp").click(function() {
-  socket.emit('req'+uid, {body: 'photo'});
+  socket.emit('req', {body: 'photo'});
 });
 
 //return to operator onclick
@@ -167,17 +168,17 @@ $("#rtp").click(function() {
 
 //land onclick
 $("#l").click(function() {
-  socket.emit('req'+uid, {body: 'land'});
+  socket.emit('req', {body: 'land'});
 });
 
 //hover onclick
 $("#h").click(function() {
-  socket.emit('req'+uid, {body: 'hover'});
+  socket.emit('req', {body: 'hover'});
 });
 
 //reboot onclick
 $("#r").click(function() {
-  socket.emit('req'+uid, {body: 'reboot'});
+  socket.emit('req', {body: 'reboot'});
 });
 
 //open settings
@@ -195,7 +196,7 @@ $("#closesettings").click(function() {
 });
 
 function getautophoto(){
-  socket.emit('req'+uid, {body: 'photo'});
+  socket.emit('req', {body: 'photo'});
 }
 let autophotointerval;
 
@@ -286,14 +287,25 @@ $("#closertowarn").click(function() {
   }, 100);
 });
 
+//setting up drone marker
 let dronemarker;
+let limiter = 0;
+let vIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
 //handle base64 image data from server
-socket.on('photofromclover'+uid, (photo) => { 
+socket.on('photofromclover', (photo) => { 
   document.getElementById('photo').innerHTML = '<img src = "data:image/png;base64, '+photo+'" id = "pfc"/>';
 });
 
 //handling telemetry stream from server
-socket.on('telemetrystream'+uid, (telem) => {
+socket.on('telemetrystream', (telem) => {
   if(!telem.armed){
     document.querySelector('#status').innerHTML = '🞄 Connected<br/>🞄 Disarmed';
     document.querySelector('#status').style.color = 'rgb(255, 102, 0)';
@@ -317,14 +329,21 @@ socket.on('telemetrystream'+uid, (telem) => {
     document.getElementById('gpswarn').style.display = 'block';
     TweenLite.to('#gpswarn', 0.1, {opacity: '1'});
   }
-  else{
-    try {
-      map.removeLayer(dronemarker);
-    } catch (e) {}
-    try {
-      dronemarker = L.marker([telem.lat, telem.lon]).addTo(map);
-      dronemarker.bindPopup("Your Drone");
-    } catch (e) {}
+
+  //move drone marker on map every 5s
+  else if(telem.lat != null){
+    if(limiter == 5){
+      try {
+        dronemarker.setLatLng([telem.lat, telem.lon]); 
+      } catch (e) {
+        dronemarker = L.marker([telem.lat, telem.lon], {icon: vIcon}).addTo(map);
+        dronemarker.bindPopup("Your Drone");
+      }
+      limiter = 0;
+    }
+    else{
+      limiter++;
+    }
   }
 
 });
