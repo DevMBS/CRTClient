@@ -31,8 +31,9 @@
             <p id = 'ut'>Upload Mission</p>
             <label for = "mission" id = "fl">Choose code file</label>
             <input type = "file" id = "mission" name = "mission"/>
-            <button id = 'ub'>Upload</button>
+            <button id = 'ub'>Upload & Run</button>
         </div>
+        <div id = 'cloverside' class = 'warn'><p id = 'cloversidetext' class = 'warntext'></p><img class='close' id='closecloverside' src = '../../assets/close.png'/></div>
         <div id = 'gpswarn' class = 'warn'><p id = 'gpswarntext' class = 'warntext'>You can't use function 'Return to operator' and monitor coordinates of your Clover, because it's gps module has not caught enough satellites, or you are not using EKF2, also check the settings of your flight controller, following the <a href = 'https://clover.coex.tech/en/gps.html'>instructions</a>.<br/>If everything works correctly, then just wait a bit, when your drone catches a sufficient number of satellites, it's marker will be displayed on the map.</p><img class='close' id='closegpswarn' src = '../../assets/close.png'/></div>
         <div id = 'rtowarn' class = 'warn'><p class = 'warntext'>Please check parameters in settings, such as 'Return Type', 'Return Altitude', 'Return Speed' and 'Action After Return' in order for this function to execute as you need.</p><img class='close' id='closertowarn' src = '../../assets/close.png'/></div>
         <div id = 'settingslist'>
@@ -55,11 +56,9 @@
                 <p id = 'gphs'>
                     Automatically take photos: <select id = 'atp'>
                         <option id = 'gp1' selected='selected' value=1>Never</option>
-                        <option id = 'gp2' value=2>Every 100 m/s</option>
-                        <option id = 'gp3' value=3>Every 500 m/s</option>
-                        <option id = 'gp4' value=4>Every 1s</option>
-                        <option id = 'gp5' value=5>Every 30s</option>
-                        <option id = 'gp6' value=6>Every 1m</option>
+                        <option id = 'gp2' value=2>Every 30 s</option>
+                        <option id = 'gp3' value=3>Every 1 m</option>
+                        <option id = 'gp4' value=4>Every 5 m</option>
                     </select>
                 </p>
             <img class='close' id='closesettings' src = '../../assets/close.png'/>

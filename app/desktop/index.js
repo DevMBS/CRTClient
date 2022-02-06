@@ -1,18 +1,25 @@
 'use strict';
+document.querySelector('#status').style.color = 'red';
 //three js lib import
 import * as THREE from '../../assets/three.js';
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
 //sockets init
 const socket = io();
-//socket io uploader init
-const uploader = new SocketIOFileUpload(socket);
+const fileReader = new FileReader();
 if(localStorage.getItem('uid') == null){
   location.href = '../../login/';
 }
 else{
   socket.emit('uid', localStorage.getItem('uid'));
 }
-document.querySelector('#status').style.color = 'red';
+
+//TODO: cloverside warn styles, socket getCloverside, zipped installers, login
+if(localStorage.getItem('cloverside') == null){
+  socket.emit('getCloverside', uid);
+  socket.on('cloversideSoftFile', (link) => {
+    document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/>There is some instructions:<br/>Firstly, download <a href = '"+link.installers+"'>this</a> and <a href = '"+link.login+"'>this</a> files. First file - .zip package with software installer and uninstaller, unzip this and upload to your Clover. Second file is a file with your UID, download it and upload to the same with installer directory. Then run in your console: <br/><code>sudo sh ./install.sh</code><br/> When everything succesfully installed, you will see the 'Connected' status!";
+  });
+}
 const uid = localStorage.getItem('uid');
 //three js init
 const canvas = document.querySelector('#clover3dview');
@@ -126,10 +133,22 @@ function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
 };
 navigator.geolocation.getCurrentPosition(success, error, options);
+
 //upload mission button 
 $('#mission').change(function() {
   if ($(this).val() != '') $(this).prev().text('Mission: ' + $(this)[0].files[0].name);
   else $(this).prev().text('Choose code file');
+});
+$('#ub').click(function(){
+  let file = document.getElementById("mission").files[0];
+  if (file) {
+    fileReader.readAsText(file, "UTF-8");
+    fileReader.onload = function(evt) {
+        socket.emit('newMission', evt.target.result);
+  }
+  document.getElementById('ub').innerText('Running...');
+  setTimeout(function(){document.getElementById('ub').innerText('Upload');$('#mission').prev().text('Choose code file');}, 400);
+}
 });
 
 //send photo onclick
@@ -240,19 +259,13 @@ $('#savesettings').click(function() {
     autophoto = 'never';
   }
   else if(document.getElementById('atp').value == 2){
-    autophoto = 100;
-  }
-  else if(document.getElementById('atp').value == 3){
-    autophoto = 500;
-  }
-  else if(document.getElementById('atp').value == 4){
-    autophoto = 1000;
-  }
-  else if(document.getElementById('atp').value == 5){
     autophoto = 30000;
   }
-  else if(document.getElementById('atp').value == 6){
+  else if(document.getElementById('atp').value == 3){
     autophoto = 60000;
+  }
+  else if(document.getElementById('atp').value == 4){
+    autophoto = 300000;
   }
   localStorage.setItem('autophoto', autophoto);
   if(autophoto != 'never'){
@@ -347,8 +360,5 @@ socket.on('telemetrystream', (telem) => {
   }
 
 });
-
-//setting up an uploader
-uploader.listenOnSubmit(document.getElementById("ub"), document.getElementById("mission"));
 
 });
