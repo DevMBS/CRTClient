@@ -197,7 +197,7 @@ $("#h").click(function() {
 
 //reboot onclick
 $("#r").click(function() {
-  socket.emit('req', {body: 'reboot'});
+  socket.emit('req', {body: 'disarm'});
 });
 
 //open settings
