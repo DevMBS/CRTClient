@@ -79,8 +79,8 @@ client.connect(err => {
                 else if(req.body == 'hover'){
                     io.to(uid).emit('command', {command: 'hover'});
                 }
-                else if(req.body == 'reboot'){
-                    io.to(uid).emit('command', {command: 'reboot'});
+                else if(req.body == 'disarm'){
+                    io.to(uid).emit('command', {command: 'disarm'});
                 }
                 else if(req.body == 'returnToHome'){
                     io.to(uid).emit('command', {command: 'rth', data: {to: req.data.to, lat: req.data.lat, lon: req.data.lon, alt: req.data.alt, speed: req.data.speed, action: req.data.action}});
