@@ -89,9 +89,9 @@ client.connect(err => {
                     io.to(uid).emit('command', {command: 'photo'});
                 }
             });
-            const uploader = new siofu();
-            uploader.dir = "./app/desktop/uploads"+uid+"/";
-            uploader.listen(socket);
+            socket.on('newMission', (mission) => {
+                io.to(uid).emit('mission', mission);
+            });
         });
         //signup
         socket.on('signup', (user) => {
@@ -124,7 +124,6 @@ client.connect(err => {
             else{
                 let key = await findOne(keys, {nickname: user.nickname});
                 if(aes.decryptText(data.password, key.key) != user.password){
-                    console.log(aes.decryptText(data.password, key.key), user.password);
                     socket.emit('signinres', {body: "password_error"});
                 }
                 else{
