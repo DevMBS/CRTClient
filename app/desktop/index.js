@@ -6,11 +6,12 @@ import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/thre
 //sockets init
 const socket = io();
 const fileReader = new FileReader();
-if(localStorage.getItem('uid') == null){
+const uid = localStorage.getItem('uid');
+if(uid == null){
   location.href = '../../login/';
 }
 else{
-  socket.emit('uid', localStorage.getItem('uid'));
+  socket.emit('uid', uid);
 }
 
 //TODO: cloverside warn styles, socket getCloverside, zipped installers, login
@@ -20,7 +21,6 @@ if(localStorage.getItem('cloverside') == null){
     document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/>There is some instructions:<br/>Firstly, download <a href = '"+link.installers+"'>this</a> and <a href = '"+link.login+"'>this</a> files. First file - .zip package with software installer and uninstaller, unzip this and upload to your Clover. Second file is a file with your UID, download it and upload to the same with installer directory. Then run in your console: <br/><code>sudo sh ./install.sh</code><br/> When everything succesfully installed, you will see the 'Connected' status!";
   });
 }
-const uid = localStorage.getItem('uid');
 //three js init
 const canvas = document.querySelector('#clover3dview');
 const renderer = new THREE.WebGLRenderer({canvas});
