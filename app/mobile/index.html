@@ -1,4 +1,70 @@
 <!DOCTYPE html>
-<html>
-    
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+        <meta charset = 'utf8'/>
+        <title>The Rescue Clover Project</title>
+        <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico">
+        <link rel="manifest" href="../../manifest.json">
+        <link rel="stylesheet" href="./index.css" />
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <canvas id='clover3dview'></canvas>
+        <div class = "swiper container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <button id = 'l'>Land</button>
+                    <button id = 'rtp'>Return</button><br/><br/>
+                    <button id = 'h'>Hover</button>
+                    <button id = 'r'>Disarm</button>
+                </div>
+                <div class="swiper-slide" id = 'photoslide'>
+                    <p id = 'pt' align="center">LAST PHOTO FROM CLOVER</p><div id='photocont'><div id="photo"><p id = 'snp' align="center">There is no data fetched.</p></div><button id = 'gp' >Get photo</button></div>
+                </div>
+                <div class="swiper-slide">
+                    <div id = 'upload'>
+                        <p id = 'ut'>Upload Mission</p>
+                        <label for = "mission" id = "fl">Choose code file</label>
+                        <input type = "file" id = "mission" name = "mission"/>
+                        <button id = 'ub'>Upload & Run</button>
+                    </div></div>
+                <div class="swiper-slide">
+                    <p id = 'st'>Settings</p>
+                    <p id = 'rtost'>Return To Operator:</p>
+                        <p id = 'rtos'>Altitude: <input id = 'rtosalt' placeholder = '20' maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>m
+                            <br/>
+                            Speed: <input id = 'rtosspeed' placeholder = '6' maxlength = '2' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>m/s
+                            <br/>
+                            Action: <select id = 'action'>
+                                <option selected='selected' id = 'a1' value=1>Hover</option>
+                                <option id = 'a2' value=2>Land</option>
+                            </select><br/>
+                            Return to: <select id = 'returnto'>
+                                <option selected='selected' id = 'rt1' value=1>My coordinates</option>
+                                <option id = 'rt2' value=2>Takeoff coordinates</option>
+                            </select>
+                        </p>
+                    <p id = 'gphst'>Get Photo:</p>
+                        <p id = 'gphs'>
+                            Automatically take photos: <select id = 'atp'>
+                                <option id = 'gp1' selected='selected' value=1>Never</option>
+                                <option id = 'gp2' value=2>Every 30 s</option>
+                                <option id = 'gp3' value=3>Every 1 m</option>
+                                <option id = 'gp4' value=4>Every 5 m</option>
+                            </select>
+                        </p>
+                    <button id = 'savesettings'>Save</button>
+                </div>
+              </div>
+        </div>
+        <p id = 'status'>Disconnected</p>
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script src = './index.js' type = 'module'></script>
+    </body>
 </html>
