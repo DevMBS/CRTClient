@@ -14,13 +14,7 @@ else{
   socket.emit('uid', uid);
 }
 
-//TODO: cloverside warn styles, socket getCloverside, zipped installers, login
-if(localStorage.getItem('cloverside') == null){
-  socket.emit('getCloverside', uid);
-  socket.on('cloversideSoftFile', (link) => {
-    document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/>There is some instructions:<br/>Firstly, download <a href = '"+link.installers+"'>this</a> and <a href = '"+link.login+"'>this</a> files. First file - .zip package with software installer and uninstaller, unzip this and upload to your Clover. Second file is a file with your UID, download it and upload to the same with installer directory. Then run in your console: <br/><code>sudo sh ./install.sh</code><br/> When everything succesfully installed, you will see the 'Connected' status!";
-  });
-}
+
 //three js init
 const canvas = document.querySelector('#clover3dview');
 const renderer = new THREE.WebGLRenderer({canvas});
@@ -99,8 +93,15 @@ function checkDisconnection(){
   previousRotation.y = clover.rotation.y;
   previousRotation.z = clover.rotation.z;
 }
-
 const checkDisconnectionInterval = setInterval(checkDisconnection, 4000);
+
+//welcome warn, instructions
+if(localStorage.getItem('cloverside') == null){
+  document.getElementById('cloverside').style.display = 'block';
+  document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo sh ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo sh ./uninstall.sh</code>";
+  TweenLite.to('#cloverside', 0.1, {opacity: '1'});
+  localStorage.setItem('cloverside', true);
+}
 
 
 document.getElementById('settingslist').style.display = 'none';
@@ -134,6 +135,12 @@ function error(err) {
 };
 navigator.geolocation.getCurrentPosition(success, error, options);
 
+map.locate({
+  watch: true
+}).on('locationfound', (e) => {
+  usermarker.setLatLng([e.latitude, e.longitude]);
+});
+
 //upload mission button 
 $('#mission').change(function() {
   if ($(this).val() != '') $(this).prev().text('Mission: ' + $(this)[0].files[0].name);
@@ -145,10 +152,13 @@ $('#ub').click(function(){
     fileReader.readAsText(file, "UTF-8");
     fileReader.onload = function(evt) {
         socket.emit('newMission', evt.target.result);
+        document.getElementById('ub').innerText = 'Running...';
+        setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run';document.getElementById('fl').innerText = 'Choose code file';}, 1000);
+    }
   }
-  document.getElementById('ub').innerText('Running...');
-  setTimeout(function(){document.getElementById('ub').innerText('Upload');$('#mission').prev().text('Choose code file');}, 400);
-}
+  else{
+    document.getElementById('ub').innerText = 'Please choose code file to upload!';
+  }
 });
 
 //send photo onclick
@@ -214,6 +224,7 @@ $("#closesettings").click(function() {
   }, 100);
 });
 
+//automatically take photos
 function getautophoto(){
   socket.emit('req', {body: 'photo'});
 }
@@ -300,9 +311,16 @@ $("#closertowarn").click(function() {
   }, 100);
 });
 
+//close welcome
+$("#cloverside").click(function() {
+  TweenLite.to('#cloverside', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('cloverside').style.display = 'none';
+  }, 100);
+});
+
 //setting up drone marker
 let dronemarker;
-let limiter = 0;
 let vIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -343,20 +361,15 @@ socket.on('telemetrystream', (telem) => {
     TweenLite.to('#gpswarn', 0.1, {opacity: '1'});
   }
 
-  //move drone marker on map every 5s
+  //move drone marker on map
   else if(telem.lat != null){
-    if(limiter == 5){
       try {
-        dronemarker.setLatLng([telem.lat, telem.lon]); 
+        let newLatLng = new L.LatLng(telem.lat, telem.lon);
+        dronemarker.setLatLng(newLatLng);
       } catch (e) {
         dronemarker = L.marker([telem.lat, telem.lon], {icon: vIcon}).addTo(map);
         dronemarker.bindPopup("Your Drone");
       }
-      limiter = 0;
-    }
-    else{
-      limiter++;
-    }
   }
 
 });

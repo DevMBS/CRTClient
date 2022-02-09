@@ -198,6 +198,7 @@ button{
     font-size: 150%;
     display: none;
     opacity: 0;
+    word-wrap: break-word;
 }
 .warntext{
     position: absolute;
@@ -283,4 +284,8 @@ select{
     border-bottom-color: #111;
     padding: 1%;
     font-size: 150%;
+}
+#cloverside{
+    width: 90%;
+    height: 90%;
 }
