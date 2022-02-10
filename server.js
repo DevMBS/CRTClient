@@ -12,11 +12,8 @@ const random = new RandomOrg({ apiKey: '6d35fb17-c86e-4cff-a043-b6686d609123' })
 const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://admin:jstop1234@crtcluster.tuj8e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-const siofu = require("socketio-file-upload");
-const fs = require("fs");
 //setting up express framework
 app.use(express.static(__dirname));
-app.use(siofu.router);
 
 //connecting to mongodb client
 client.connect(err => {
