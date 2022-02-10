@@ -67,6 +67,16 @@ client.connect(err => {
         socket.on('photo', (photo)=>{
             io.to(photo.uid).emit('photofromclover', photo.photo);
         });
+        //if return func cannt be executed
+        socket.on('rthError', (uid) => {
+            io.to(uid.uid).emit('rError');
+        });
+
+        //handle mission output
+        socket.on('missionOut', (mission) => {
+            io.to(mission.uid).emit('missionOutput', mission);
+        });
+
         //handle client connection
         socket.on('uid', (uid)=>{
             socket.join(uid);
