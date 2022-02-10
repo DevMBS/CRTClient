@@ -161,6 +161,12 @@ $('#ub').click(function(){
   }
 });
 
+//handle mission output
+socket.on('missionOutput', (mission) => {
+  //TODO
+  console.log(mission);
+});
+
 //send photo onclick
 $("#gp").click(function() {
   socket.emit('req', {body: 'photo'});
@@ -193,6 +199,12 @@ $("#rtp").click(function() {
       socket.emit('req', {body: 'returnToHome', data: {to: 'takeoff', alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
     }
   }
+});
+
+//handle return function errors
+socket.on('rError', function(){
+  document.getElementById('rtherror').style.display = 'block';
+  TweenLite.to('#rtherror', 0.1, {opacity: '1'});
 });
 
 //land onclick
@@ -312,10 +324,18 @@ $("#closertowarn").click(function() {
 });
 
 //close welcome
-$("#cloverside").click(function() {
+$("#closecloverside").click(function() {
   TweenLite.to('#cloverside', 0.1, {opacity: '0'});
   setTimeout(function(){
     document.getElementById('cloverside').style.display = 'none';
+  }, 100);
+});
+
+//close RTH func error
+$("#closertherror").click(function() {
+  TweenLite.to('#rtherror', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('rtherror').style.display = 'none';
   }, 100);
 });
 
