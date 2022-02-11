@@ -16,13 +16,9 @@ sudo mv ./login.txt /var/www/CRTClover
 echo -e "\v\033[35mInstalling required npm modules...\v\033[0m"
 cd /var/www/CRTClover && sudo npm install --save child_process roslib fs socket.io-client && cd -
 echo -e "\v\033[35mSetting up the Rescue Clover server process manager...\v\033[0m"
+sudo chmod 777 /var/www/CRTClover/
 sudo npm install pm2@latest -g
-echo "\v\033[35mStarting the server... (If you want to stop service write 'sudo pm2 stop /var/www/CRTClover/server.js' in the console)\v\033[0m"
-sudo pm2 start /var/www/CRTClover/server.js -i max
-echo -e "\v\033[35mEnabling the service in autoload... (If you want to disable server autoload write 'sudo pm2 unstartup' in the console).\v\033[0m"
-sudo pm2 startup
-sudo pm2 save
-echo -e "\v\033[32mInstallation successfully completed! You can delete the installer.\v\033[0m"
+echo -e "\v\033[32mInstallation successfully completed! Server starts...\v\033[0m"
 else
 echo "Please copy and paste command from the install tutorial correctly!"
 fi
