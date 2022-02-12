@@ -18,7 +18,11 @@ cd /var/www/CRTClover && sudo npm install --save child_process roslib fs socket.
 echo -e "\v\033[35mSetting up the Rescue Clover server process manager...\v\033[0m"
 sudo chmod 777 /var/www/CRTClover/
 sudo npm install pm2@latest -g
-echo -e "\v\033[32mInstallation successfully completed! Server starts...\v\033[0m"
+echo -e "\v\033[35mStarting server and setting it to autoload...\v\033[0m"
+pm2 start /var/www/CRTClover/server.js
+sudo pm2 startup
+pm2 save
+echo -e "\v\033[32mInstallation successfully completed!\v\033[0m"
 else
 echo "Please copy and paste command from the install tutorial correctly!"
 fi
