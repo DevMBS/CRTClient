@@ -152,10 +152,10 @@ map.locate({
 function setPhotoAR(){
   if(document.getElementById('pfc')){
     if(document.getElementById('photo').offsetWidth > document.getElementById('photo').offsetHeight*(4/3)){
-      document.getElementById('pfc').offsetWidth = document.getElementById('photo').offsetHeight*(4/3);
+      document.getElementById('pfc').style.width = document.getElementById('photo').offsetHeight*(4/3) + 'px';
     }
     else if(document.getElementById('photo').offsetHeight > document.getElementById('photo').offsetWidth/(4/3)){
-      document.getElementById('pfc').offsetHeight = document.getElementById('photo').offsetWidth/(4/3);
+      document.getElementById('pfc').style.height = document.getElementById('photo').offsetWidth/(4/3) + 'px';
     }
   }
 }
