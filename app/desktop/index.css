@@ -180,6 +180,10 @@ button{
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+#photo{
+    height: 100%;
+    width: 100%;
+}
 .warn{
     position:absolute;
     top: 50%;

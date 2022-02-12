@@ -149,14 +149,14 @@ map.locate({
 
 //set 4:3 aspect ratio for image
 
+function calcAspectRatio(srcWidth, srcHeight, maxWidth, maxHeight) {
+  let ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+  return { width: srcWidth*ratio, height: srcHeight*ratio };
+}
 function setPhotoAR(){
   if(document.getElementById('pfc')){
-    if(document.getElementById('photo').offsetWidth > document.getElementById('photo').offsetHeight*(4/3)){
-      document.getElementById('pfc').style.width = document.getElementById('photo').offsetHeight*(4/3) + 'px';
-    }
-    else if(document.getElementById('photo').offsetHeight > document.getElementById('photo').offsetWidth/(4/3)){
-      document.getElementById('pfc').style.height = document.getElementById('photo').offsetWidth/(4/3) + 'px';
-    }
+    document.getElementById('pfc').style.width = calcAspectRatio(document.getElementById('pfc').style.width, document.getElementById('pfc').style.height, document.getElementById('photo').offsetWidth, document.getElementById('photo').offsetHeight).width + 'px';
+    document.getElementById('pfc').style.heigh = calcAspectRatio(document.getElementById('pfc').style.width, document.getElementById('pfc').style.height, document.getElementById('photo').offsetWidth, document.getElementById('photo').offsetHeight).height + 'px';
   }
 }
 const setPhotoARInterval = setInterval(setPhotoAR, 100);
