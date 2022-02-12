@@ -83,15 +83,15 @@ function render() {
 }
 requestAnimationFrame(render);
 
-let previousRotation = {x: clover.rotation.y, y: clover.rotation.z, z: clover.rotation.x};
+let previousRotation = {x: clover.rotation.x, y: clover.rotation.y, z: clover.rotation.z};
 function checkDisconnection(){
-  if(previousRotation.x == clover.rotation.y && previousRotation.y == clover.rotation.z && previousRotation.z == clover.rotation.x){
+  if(previousRotation.x == clover.rotation.x && previousRotation.y == clover.rotation.y && previousRotation.z == clover.rotation.z){
     document.querySelector('#status').innerHTML = '🞄 Disconnected';
     document.querySelector('#status').style.color = 'red';
   }
-  previousRotation.x = clover.rotation.y;
-  previousRotation.y = clover.rotation.z;
-  previousRotation.z = clover.rotation.x;
+  previousRotation.x = clover.rotation.x;
+  previousRotation.y = clover.rotation.y;
+  previousRotation.z = clover.rotation.z;
 }
 const checkDisconnectionInterval = setInterval(checkDisconnection, 4000);
 
@@ -386,8 +386,8 @@ socket.on('telemetrystream', (telem) => {
     document.querySelector('#status').style.color = 'rgb(0, 255, 136)';
   }
   //move 3d model of clover
-  clover.rotation.z = telem.pitch;
-  clover.rotation.x = telem.roll;
+  clover.rotation.x = telem.pitch;
+  clover.rotation.z = telem.roll;
   clover.rotation.y = telem.yaw;
 
   //write altitude and voltage
