@@ -83,15 +83,15 @@ function render() {
 }
 requestAnimationFrame(render);
 
-let previousRotation = {x: clover.rotation.x, y: clover.rotation.y, z: clover.rotation.z};
+let previousRotation = {x: clover.rotation.y, y: clover.rotation.z, z: clover.rotation.x};
 function checkDisconnection(){
-  if(previousRotation.x == clover.rotation.x && previousRotation.y == clover.rotation.y && previousRotation.z == clover.rotation.z){
+  if(previousRotation.x == clover.rotation.y && previousRotation.y == clover.rotation.z && previousRotation.z == clover.rotation.x){
     document.querySelector('#status').innerHTML = '🞄 Disconnected';
     document.querySelector('#status').style.color = 'red';
   }
-  previousRotation.x = clover.rotation.x;
-  previousRotation.y = clover.rotation.y;
-  previousRotation.z = clover.rotation.z;
+  previousRotation.x = clover.rotation.y;
+  previousRotation.y = clover.rotation.z;
+  previousRotation.z = clover.rotation.x;
 }
 const checkDisconnectionInterval = setInterval(checkDisconnection, 4000);
 
@@ -117,7 +117,7 @@ const resizemap = setInterval(function(){
 let usermarker;
 const map = L.map('map');
 const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmxldGNobGluZyIsImEiOiJja3hseWd2bjQxdGxrMndrajJnMmw5aXFwIn0.d1GSdCVDX_vDi_V_Svs-lQ', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    attribution: '',
     maxZoom: 18,
     id: 'mapbox/outdoors-v11',
     tileSize: 512,
@@ -146,6 +146,20 @@ map.locate({
 }).on('locationfound', (e) => {
   usermarker.setLatLng([e.latitude, e.longitude]);
 });
+
+//set 4:3 aspect ratio for image
+
+function setPhotoAR(){
+  if(document.getElementById('pfc')){
+    if(document.getElementById('photo').offsetWidth > document.getElementById('photo').offsetHeight*(4/3)){
+      document.getElementById('pfc').offsetWidth = document.getElementById('photo').offsetHeight*(4/3);
+    }
+    else if(document.getElementById('photo').offsetHeight > document.getElementById('photo').offsetWidth/(4/3)){
+      document.getElementById('pfc').offsetHeight = document.getElementById('photo').offsetWidth/(4/3);
+    }
+  }
+}
+const setPhotoARInterval = setInterval(setPhotoAR, 100);
 
 //upload mission button 
 $('#mission').change(function() {
@@ -372,9 +386,9 @@ socket.on('telemetrystream', (telem) => {
     document.querySelector('#status').style.color = 'rgb(0, 255, 136)';
   }
   //move 3d model of clover
-  clover.rotation.x = telem.pitch;
-  clover.rotation.z = telem.roll;
-  clover.rotation.y = telem.yaw;
+  clover.rotation.y = telem.pitch;
+  clover.rotation.x = telem.roll;
+  clover.rotation.z = telem.yaw;
 
   //write altitude and voltage
   document.querySelector('#alt').innerText = 'alt: '+telem.z.toFixed(1)+' m';
