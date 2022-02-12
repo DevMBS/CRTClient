@@ -125,7 +125,7 @@ const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
 }).addTo(map);
 const options = {
     enableHighAccuracy: true,
-    timeout: 5000,
+    timeout: 10000,
     maximumAge: 0
 };
 function success(pos) {
@@ -141,7 +141,8 @@ function error(err) {
 navigator.geolocation.getCurrentPosition(success, error, options);
 
 map.locate({
-  watch: true
+  watch: true,
+  enableHighAccuracy: true
 }).on('locationfound', (e) => {
   usermarker.setLatLng([e.latitude, e.longitude]);
 });
