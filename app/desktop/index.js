@@ -147,20 +147,6 @@ map.locate({
   usermarker.setLatLng([e.latitude, e.longitude]);
 });
 
-//set 4:3 aspect ratio for image
-
-function calcAspectRatio(srcWidth, srcHeight, maxWidth, maxHeight) {
-  let ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
-  return { width: srcWidth*ratio, height: srcHeight*ratio };
-}
-function setPhotoAR(){
-  if(document.getElementById('pfc')){
-    document.getElementById('pfc').style.width = calcAspectRatio(document.getElementById('pfc').style.width, document.getElementById('pfc').style.height, document.getElementById('photo').offsetWidth, document.getElementById('photo').offsetHeight).width + 'px';
-    document.getElementById('pfc').style.heigh = calcAspectRatio(document.getElementById('pfc').style.width, document.getElementById('pfc').style.height, document.getElementById('photo').offsetWidth, document.getElementById('photo').offsetHeight).height + 'px';
-  }
-}
-const setPhotoARInterval = setInterval(setPhotoAR, 100);
-
 //upload mission button 
 $('#mission').change(function() {
   if ($(this).val() != '') $(this).prev().text('Mission: ' + $(this)[0].files[0].name);

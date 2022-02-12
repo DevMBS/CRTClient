@@ -175,10 +175,9 @@ button{
     font-size: 150%;
 }
 #pfc{
-    position: absolute;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 #photo{
     height: 100%;
