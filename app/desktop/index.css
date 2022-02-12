@@ -5,6 +5,7 @@ body{
     color:rgb(255, 239, 215);
     margin: 0;
     font-family: 'Roboto', sans-serif;
+    overflow: hidden;
 }
 #map{
     width: 40%;
@@ -178,10 +179,6 @@ button{
     height: 100%;
     width: 100%;
     object-fit: contain;
-}
-#photo{
-    height: 100%;
-    width: 100%;
 }
 .warn{
     position:absolute;
