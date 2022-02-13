@@ -1,7 +1,9 @@
 const socket = io();
-window.onload = function(){
+Pace.on('done', function() {
+    TweenMax.to('#loading', 0.7, {opacity: 0});
+    setTimeout(function(){document.getElementById('loading').style.display = 'none';}, 700);
     TweenMax.to('#down', 0.6, {y:"-=20", yoyo:true, repeat:9999});
-}
+});
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./serviceworker.js');
 }
