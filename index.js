@@ -1,13 +1,9 @@
 const socket = io();
-window.onload = function(){
-    TweenMax.to('#title', 0.7, {opacity: 1});
-    TweenMax.to('#m1', 0.7, {opacity: 1});
-    TweenMax.to('#m2', 0.7, {opacity: 1});
-    TweenMax.to('#m3', 0.7, {opacity: 1});
-    TweenMax.to('#login', 0.7, {opacity: 1});
-    TweenMax.to('#app', 0.7, {opacity: 1});
+Pace.on('done', function() {
+    TweenMax.to('#loading', 0.7, {opacity: 0});
+    setTimeout(function(){document.getElementById('loading').style.display = 'none';}, 700);
     TweenMax.to('#down', 0.6, {y:"-=20", yoyo:true, repeat:9999});
-}
+});
 var smoothJumpUp = function() {
     if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
         window.scrollBy(0,-50);
@@ -23,7 +19,6 @@ window.onscroll = function() {
       document.getElementById('arrowtop').style.display = 'none';
   }
 }
-
 
 function signup(){
     document.querySelector('#signup').style.display = 'none';
