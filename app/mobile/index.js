@@ -1,4 +1,8 @@
 'use strict';
+Pace.on('done', function() {
+  TweenMax.to('#loading', 0.7, {opacity: 0});
+  setTimeout(function(){document.getElementById('loading').style.display = 'none';}, 700);
+});
 document.querySelector('#status').style.color = 'red';
 import * as THREE from '../../assets/three.js';
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
