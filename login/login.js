@@ -1,4 +1,8 @@
 const socket = io();
+Pace.on('done', function() {
+    TweenMax.to('#loading', 0.7, {opacity: 0});
+    setTimeout(function(){document.getElementById('loading').style.display = 'none';}, 700);
+});
 function signin(){
     document.querySelector('#signin').style.display = 'none';
     const forbchars = '!@#$%^&*(){}[]:;"\'\\/<>?`~№+=';

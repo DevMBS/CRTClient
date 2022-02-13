@@ -2,11 +2,14 @@
 <html>
     <head>
         <title>The Clover Rescue Project</title>
-        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="/assets/fav.ico">
         <link rel="manifest" href="../manifest.json">
         <link rel = 'stylesheet' href = 'login.css'/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+        <script data-pace-options='{ "ajax": false}' src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css">
+        <link rel ="stylesheet" href="../loading-bar.css">
     </head>
     <body>
         <p id = 'title'>Sign In</p>
@@ -14,6 +17,7 @@
         <input placeholder='Password' id = 'password' type='password'/>
         <button id = 'signin' onclick = 'signin();'>Sign In</button>
         <p id = 'status'></p>
+        <div id = 'loading'><img src = '../assets/logo_x192.svg' id='loadingLogo'/></div>
         <script src = "login.js"></script>
     </body>
 </html>
