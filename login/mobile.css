@@ -1,0 +1,17 @@
+input, button{
+    width: 80%;
+}
+@media screen and (max-aspect-ratio: 13/9) { 
+    #nickname{
+        top: 35vh;
+    }
+    #password{
+        top: 50vh;
+    }
+    #signin{
+        top: 65vh;
+    }
+    #status{
+        top: 80vh;
+    }
+}

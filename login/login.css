@@ -5,6 +5,7 @@ body{
     color:rgb(255, 239, 215);
     margin: 0;
     scroll-behavior: smooth;
+    min-height: 100%;
 }
 input, button{
     outline:none;

@@ -1,8 +1,12 @@
 const socket = io();
-Pace.on('done', function() {
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../mobile/serviceworker.js');
+}
+window.onload = function(){
     TweenMax.to('#loading', 0.7, {opacity: 0});
-    setTimeout(function(){document.getElementById('loading').style.display = 'none';}, 700);
-});
+    TweenMax.to('.pace', 0.7, {opacity: 0});
+    setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
+}
 function signin(){
     document.querySelector('#signin').style.display = 'none';
     const forbchars = '!@#$%^&*(){}[]:;"\'\\/<>?`~№+=';
