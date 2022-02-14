@@ -1,15 +1,16 @@
 const socket = io();
-Pace.on('done', function() {
+window.onload = function(){
     TweenMax.to('#loading', 0.7, {opacity: 0});
-    setTimeout(function(){document.getElementById('loading').style.display = 'none';}, 700);
+    TweenMax.to('.pace', 0.7, {opacity: 0});
+    setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
     TweenMax.to('#down', 0.6, {y:"-=20", yoyo:true, repeat:9999});
-});
+}
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./serviceworker.js');
 }
 function signup(){
     document.querySelector('#signup').style.display = 'none';
-    socket.emit('signup', {nickname: document.getElementById('nickname').value, password: document.getElementById('password').value});
+    socket.emit('signup', {nickname: document.getElementById('nickname').value.toLowerCase(), password: document.getElementById('password').value});
 }
 socket.on('signupres', (res) => {
     if(res.body == 'error'){
@@ -20,6 +21,6 @@ socket.on('signupres', (res) => {
     }
     else if(res.body == 'successful'){
         localStorage.setItem('uid', res.uid);
-        location.href = '../app.index.html';
+        location.href = '../app/mobile/index.html';
     }
 });

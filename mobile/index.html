@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="initial-scale=0.4">
         <title>The Clover Rescue Project</title>
-        <script>function gcd(a, b){return(b==0)?a:gcd(b,a%b);} w=screen.width;h=screen.height;r=gcd(w,h);if(w/r>=h/r){location.href="../"}</script>
+        <script>if(screen.width>screen.height){location.href="../"}</script>
         <link rel="icon" type="image/x-icon" href="../assets/fav.ico">
         <link rel="manifest" href="../manifest.json">
         <meta name="theme-color" content="#000"/>
@@ -18,7 +18,7 @@
     <body>
         <img src = "../assets/rpi4.png" id = "rpi" alt='rpi4'/>
         <div id = 'title1'></div>
-        <button id = 'app' onclick = "location.href = '../app/index.html'">Go to app</button><button id = 'signin' onclick = "location.href = '../login/index.html'">Sign In</button>
+        <button id = 'app' onclick = "location.href = '../app/mobile/index.html'">App</button><button id = 'signin' onclick = "location.href = '../login/index.html'">Sign In</button>
         <div id = 'title2'><h1>The<br/>Clover Rescue<br/>Project</h1></div>
         <img id = "clover" src = "../assets/head.jpg" alt='clover'/>
         <div id = "footer"><img src = "../assets/line-angle-down.svg" id = "down"/></div>
