@@ -1,9 +1,13 @@
 const socket = io();
-Pace.on('done', function() {
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./mobile/serviceworker.js');
+}
+window.onload = function(){
     TweenMax.to('#loading', 0.7, {opacity: 0});
-    setTimeout(function(){document.getElementById('loading').style.display = 'none';}, 700);
+    TweenMax.to('.pace', 0.7, {opacity: 0});
+    setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
     TweenMax.to('#down', 0.6, {y:"-=20", yoyo:true, repeat:9999});
-});
+}
 var smoothJumpUp = function() {
     if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
         window.scrollBy(0,-50);
