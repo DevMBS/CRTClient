@@ -32,6 +32,9 @@ body{
   left: 0.5%;
   font-size: 120%;
 }
+input{
+  outline: none;
+}
 button{
   outline: none;
   cursor: pointer;
@@ -65,17 +68,11 @@ button{
   right: 0%;
   border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
 }
-#photocont{
-  
-}
 #pt{
   font-family: 'Quicksand', sans-serif;
   position: absolute;
   top: 20%;
   font-size: 140%;
-}
-#photo{
-  
 }
 #gp{
   position: absolute;
@@ -205,4 +202,8 @@ select{
   transform: translate(-50%, -50%);
   top: 50%;
   box-shadow: 0px 0px 15px #111;
+}
+#map{
+  width: 100%;
+  margin-top: 80%;
 }
