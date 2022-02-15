@@ -23,16 +23,16 @@
         <p id = 'status'>🞄 Disconnected</p>
         <p id = 'alt'></p><p id = 'volt'></p>
         <div id = 'actions'>
-            <button id = 'rtp'>Return to operator</button>
             <button id = 'l'>Land</button>
-            <button id = 'r'>Disarm</button>
+            <button id = 'rtp'>Return</button><br/><br/>
             <button id = 'h'>Hover</button>
+            <button id = 'r'>Disarm</button><br/><br/>
             <button id = 'settings'>Settings</button>
         </div>
         <div id = 'upload'>
             <p id = 'ut'>Upload Mission</p>
-            <label for = "mission" id = "fl">Choose code file</label>
-            <input type = "file" id = "mission" name = "mission"/>
+            <label for = "mission" id = "fl">Choose code</label>
+            <input type = "file" id = "mission" name = "mission" accept="text/x-python"/>
             <button id = 'ub'>Upload & Run</button>
         </div>
         <div id = 'rtherror' class = 'warn'><p id = 'rtherrortext' class = 'warntext'>The drone cannot be returned because it has no GPS data.</p><img class='close' id='closertherror' src = '../../assets/close.png'/></div>
@@ -41,7 +41,7 @@
         <div id = 'cloverside' class = 'warn'><p id = 'cloversidetext' class = 'warntext'> </p><img class='close' id='closecloverside' src = '../../assets/close.png'/></div>
         <div id = 'settingslist'>
             <p id = 'st'>Settings</p>
-            <p id = 'rtost'>Return To Operator:</p>
+            <p id = 'rtost'>Return:</p>
                 <p id = 'rtos'>Altitude: <input id = 'rtosalt' placeholder = '20' maxlength="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>m
                     <br/>
                     Speed: <input id = 'rtosspeed' placeholder = '6' maxlength = '1' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>m/s

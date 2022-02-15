@@ -21,15 +21,15 @@ body{
     padding: 0.5%;
     position: absolute;
     font-family: 'Quicksand', sans-serif;
-    top: 36%;
-    font-size: 200%;
+    top: 37%;
+    font-size: 1.8vw;
     background-color: rgba(17, 17, 17, 0.336);
     width: 40%;
 }
 #snp{
     text-align: center;
     margin-top: 30%;
-    font-size: 150%;
+    font-size: 1.4vw;
 }
 button{
     outline: none;
@@ -38,18 +38,18 @@ button{
     font-family: 'Roboto', sans-serif;
     border: 10px solid;
     border-image-slice: 1;
-    border-width: 5px;
+    border-width: 0.3vw;
     padding: 4%;
     background-color: #111;
     position: absolute;
-    font-size: 160%;
+    font-size: 1.4vw;
 }
 #gp{
     padding: 1%;
     background-color:rgba(0, 0, 0, 0.363);
     border: none;
     width: 30%;
-    font-size: 150%;
+    font-size: 1.35vw;
     top: 90%;
     left: 50%;
     margin-right: -50%;
@@ -58,7 +58,7 @@ button{
 #ct{
     position: absolute;
     font-family: 'Quicksand', sans-serif;
-    font-size: 300%;
+    font-size: 2.5vw;
     top: 0%;
     right: 2%;
 }
@@ -72,7 +72,7 @@ button{
 #status{
     position: absolute;
     font-family: 'Quicksand', sans-serif;
-    font-size: 200%;
+    font-size: 1.6vw;
     top: 11%;
     right: 3%;
     text-align: right;
@@ -81,7 +81,7 @@ button{
     position: absolute;
     top: 30%;
     left: 55%;
-    font-size: 150%;
+    font-size: 1.35vw;
 }
 #actions{
     position: absolute;
@@ -91,33 +91,30 @@ button{
     width: 20%;
 }
 #rtp{
-    padding-top: 5%;
-    padding-bottom: 5%;
-    font-size: 114%;
+    right: 0;
     width: 49%;
-    right: 0%;
     border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
 }
-#l{
+#l{ 
     width: 49%;
     border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
 }
 #r{
+    top: 20%;
+    right: 0;
     width: 49%;
     text-align: center;
-    top:20%;
-    right: 0%;
     border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
 }
 #h{
+    top: 20%;
     width: 49%;
     text-align: center;
-    top:20%;
     border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
 }
 #settings{
-    width: 100%;
     top: 40%;
+    width: 100%;
     border-image-source: linear-gradient(to left, #3ad0d5, #d53a9d);
 }
 #upload{
@@ -136,36 +133,34 @@ button{
     z-index: -1;
 }
 #fl{
-    position: absolute;
-    top: 27%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
     outline: none;
     background-color:#111;
     cursor: pointer;
     color: rgb(255, 239, 215);
     font-family: 'Roboto', sans-serif;
     padding: 4%;
-    position: absolute;
-    font-size: 180%;
+    font-size: 1.5vw;
     background: linear-gradient(to top right, #3ad0d5, #d53a9d);
     width: 27.8%;
+    text-align: center;
 }
 #ut{
-    position: absolute;
+    text-align: center;
+    width: 100%;
     font-family: 'Quicksand', sans-serif;
-    font-size: 270%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    font-size: 2.3vw;
 }
 #ub{
     width: 100%;
-    top: 44%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    font-size: 1.5vw;
     border-image-source: linear-gradient(to bottom right, #3ad0d5, #d53a9d);
     width: 35.7%;
 }
@@ -173,7 +168,7 @@ button{
     position: absolute;
     top: 30%;
     left: 65%;
-    font-size: 150%;
+    font-size: 1.35vw;
 }
 #pfc{
     height: 100%;
@@ -196,13 +191,14 @@ button{
     background-color: #111;
     color: rgb(255, 239, 215);
     font-family: 'Roboto', sans-serif;
-    font-size: 150%;
+    font-size: 1.35vw;
     display: none;
     opacity: 0;
     word-wrap: break-word;
-    overflow: scroll;
+    overflow: auto;
     scrollbar-width: none;
 }
+.warn::-webkit-scrollbar{ width :0px; }
 .warntext{
     text-align: center;
     padding: 2%;
@@ -223,9 +219,9 @@ a{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    width: 700px;
+    width: 40vw;
     z-index: 99999;
-    height: 500px;
+    height: 60vh;
     border-radius: 50px;
     border-style:solid;
     border-width: 3px;
@@ -238,14 +234,14 @@ a{
 }
 #st{
     text-align: center;
-    font-size: 200%;
+    font-size: 2.2vw;
 }
 #rtost{
-    font-size: 160%;
+    font-size: 1.4vw;
     padding-left: 10px;
 }
 #rtos{
-    font-size: 140%;
+    font-size: 1.3vw;
     margin-left: 10%;
 }
 #rtos input{
@@ -261,15 +257,15 @@ select{
     color:rgb(255, 239, 215);
     border: none;
     outline: none;
-    font-size: 101%;
+    font-size: 1vw;
     cursor: pointer;
 }
 #gphst{
-    font-size: 160%;
+    font-size: 1.4vw;
     padding-left: 10px;
 }
 #gphs{
-    font-size: 140%;
+    font-size: 1.3vw;
     margin-left: 10%;
 }
 #savesettings{
@@ -278,13 +274,13 @@ select{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    width: 300px;
+    width: 15vw;
     border-style:solid;
-    border-width: 3px;
+    border-width: 0.15vw;
     border-color: #8c35ff;
     border-bottom-color: #111;
     padding: 1%;
-    font-size: 150%;
+    font-size: 1.35vw;
 }
 #cloverside{
     width: 90%;
@@ -297,9 +293,9 @@ select{
     background-color: #111;
     color:rgb(255, 239, 215);
     padding: 0.5%;
-    font-size: 120%;
+    font-size: 1.25vw;
     border-style:solid;
-    border-width: 3px;
+    border-width: 0.25vw;
     border-top-color: #8c35ff;
     border-left-color: #8c35ff;
     border-bottom-color: #000;
