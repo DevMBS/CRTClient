@@ -85,12 +85,13 @@ button{
 }
 #actions{
     position: absolute;
-    top: 40%;
+    top: 45%;
     right: 0%;
     height: 60%;
     width: 20%;
 }
 #rtp{
+    
     right: 0;
     width: 49%;
     border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
@@ -100,20 +101,20 @@ button{
     border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
 }
 #r{
-    top: 20%;
+    top: 12vh;
     right: 0;
     width: 49%;
     text-align: center;
     border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
 }
 #h{
-    top: 20%;
+    top: 12vh;
     width: 49%;
     text-align: center;
     border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
 }
 #settings{
-    top: 40%;
+    top: 24vh;
     width: 100%;
     border-image-source: linear-gradient(to left, #3ad0d5, #d53a9d);
 }
