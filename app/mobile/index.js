@@ -63,7 +63,7 @@ let clover;
 gltfLoader.load('../../assets/Clover4.glb', (gltf) => {
   clover = gltf.scene;
   scene.add(clover);
-  clover.position.set(0.35, 0, 0);
+  clover.position.set(0.37, 0, 0);
 //render
 function resizeRendererToDisplaySize(renderer) {
   const canvas = renderer.domElement;
@@ -136,6 +136,98 @@ map.locate({
   enableHighAccuracy: true
 }).on('locationfound', (e) => {
   usermarker.setLatLng([e.latitude, e.longitude]);
+});
+
+//welcome warn, instructions
+if(localStorage.getItem('cloverside') == null){
+  document.getElementById('cloverside').style.display = 'block';
+  document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo sh ./uninstall.sh</code>";
+  TweenLite.to('#cloverside', 0.1, {opacity: '1'});
+  localStorage.setItem('cloverside', true);
+}
+
+//close welcome
+$("#closecloverside").click(function() {
+  TweenLite.to('#cloverside', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('cloverside').style.display = 'none';
+  }, 100);
+});
+
+
+//upload mission button 
+$('#mission').change(function() {
+  if ($(this).val() != '') $(this).prev().text('Mission: ' + $(this)[0].files[0].name);
+  else $(this).prev().text('Choose code file');
+});
+$('#ub').click(function(){
+  let file = document.getElementById("mission").files[0];
+  if (file) {
+    fileReader.readAsText(file, "UTF-8");
+    fileReader.onload = function(evt) {
+        socket.emit('newMission', evt.target.result);
+        document.getElementById('ub').innerText = 'Running...';
+        setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run';document.getElementById('fl').innerText = 'Choose code file';}, 1000);
+    }
+  }
+  else{
+    document.getElementById('ub').innerText = 'Please choose code file to upload!';
+  }
+});
+
+//handle mission output
+socket.on('missionOutput', (mission) => {
+  //TODO
+  console.log(mission);
+});
+
+//send photo onclick
+$("#gp").click(function() {
+  socket.emit('req', {body: 'photo'});
+});
+
+//return onclick
+$("#rtp").click(function() {
+  //if user has not changed the return to operator settings
+  if(localStorage.getItem('rtowarnclosed') == null){
+    document.getElementById('rtowarn').style.display = 'block';
+    TweenLite.to('#rtowarn', 0.1, {opacity: '1'});
+  }
+  else{
+    if(localStorage.getItem('returnto') == 'mycoords'){
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      };
+      function success(pos) {
+        const crd = pos.coords;
+        socket.emit('req', {body: 'returnToHome', data: {to: 'user', lat: crd.latitude, lon: crd.longitude, alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
+      };
+      function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      };
+      navigator.geolocation.getCurrentPosition(success, error, options);
+    }
+    else{
+      socket.emit('req', {body: 'returnToHome', data: {to: 'takeoff', alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
+    }
+  }
+});
+
+//close return warn
+$("#closertowarn").click(function() {
+  localStorage.setItem('rtowarnclosed', ' ');
+  TweenLite.to('#rtowarn', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('rtowarn').style.display = 'none';
+  }, 100);
+});
+
+//handle return function errors
+socket.on('rError', function(){
+  document.getElementById('rtherror').style.display = 'block';
+  TweenLite.to('#rtherror', 0.1, {opacity: '1'});
 });
 
 });
