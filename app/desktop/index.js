@@ -186,9 +186,9 @@ $("#gp").click(function() {
   socket.emit('req', {body: 'photo'});
 });
 
-//return to operator onclick
+//return onclick
 $("#rtp").click(function() {
-  //if user has not changed the return to operator settings
+  //if user has not changed the return settings
   if(localStorage.getItem('rtowarnclosed') == null){
     document.getElementById('rtowarn').style.display = 'block';
     TweenLite.to('#rtowarn', 0.1, {opacity: '1'});
@@ -380,8 +380,8 @@ socket.on('telemetrystream', (telem) => {
     document.querySelector('#status').style.color = 'rgb(0, 255, 136)';
   }
   //move 3d model of clover
-  clover.rotation.x = telem.pitch;
-  clover.rotation.z = telem.roll;
+  clover.rotation.x = telem.roll;
+  clover.rotation.z = telem.pitch;
   clover.rotation.y = telem.yaw;
 
   //write altitude and voltage
