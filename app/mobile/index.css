@@ -255,7 +255,7 @@ select{
 }
 #alt{
   position:absolute;
-  top: 90vh;
+  top: 85vh;
   left: 10vw;
   font-size: 1.9vh;
   color:rgb(255, 239, 215);
@@ -263,7 +263,7 @@ select{
 }
 #volt{
   position:absolute;
-  top: 90vh;
+  top: 85vh;
   right: 10vw;
   font-size: 1.9vh;
   color:rgb(255, 239, 215);
