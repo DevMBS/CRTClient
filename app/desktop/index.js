@@ -380,8 +380,8 @@ socket.on('telemetrystream', (telem) => {
     document.querySelector('#status').style.color = 'rgb(0, 255, 136)';
   }
   //move 3d model of clover
-  clover.rotation.x = telem.roll;
-  clover.rotation.z = telem.pitch;
+  clover.rotation.x = telem.pitch;
+  clover.rotation.z = telem.roll;
   clover.rotation.y = telem.yaw;
 
   //write altitude and voltage
