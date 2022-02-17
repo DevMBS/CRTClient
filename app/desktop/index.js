@@ -177,8 +177,28 @@ $('#ub').click(function(){
 
 //handle mission output
 socket.on('missionOutput', (mission) => {
-  //TODO
-  console.log(mission);
+  if(mission.out || mission.error!=null){
+    if(mission.out){
+      if(mission.error!=null){
+        document.getElementById('missionOuttext').innerText = 'Output of your code: '+mission.out;
+      }
+      else{
+        document.getElementById('missionOuttext').innerHTML = 'Output of your code: '+mission.out+'<br/>Error: '+mission.error;
+      }
+    }
+    else{
+      document.getElementById('missionOuttext').innerText = 'Error: '+mission.error;
+    }
+    document.getElementById('missionOut').style.display = 'block';
+    TweenLite.to('#missionOut', 0.1, {opacity: '1'});
+  }
+});
+
+$("#closemissionOut").click(function() {
+  TweenLite.to('#missionOut', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('missionOut').style.display = 'none';
+  }, 100);
 });
 
 //send photo onclick
