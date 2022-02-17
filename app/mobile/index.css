@@ -290,3 +290,6 @@ select{
 #rtherror{
   height: 15vh;
 }
+#missionOut{
+  height: 60vh;
+}
