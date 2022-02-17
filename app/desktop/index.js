@@ -2,29 +2,15 @@
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('../../mobile/serviceworker.js');
 }
+document.querySelector('#status').style.color = 'red';
 window.onload = function(){
   TweenMax.to('#loading', 0.7, {opacity: 0});
   TweenMax.to('.pace', 0.7, {opacity: 0});
   setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
 }
-document.querySelector('#status').style.color = 'red';
+//three js lib import
 import * as THREE from '../../assets/three.js';
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
-const swiper = new Swiper(".container", {
-    grabCursor: true,
-        effect: "creative",
-        creativeEffect: {
-          prev: {
-            shadow: true,
-            translate: ["-120%", 0, -500],
-          },
-          next: {
-            shadow: true,
-            translate: ["120%", 0, -500],
-          },
-        },
-});
-
 //sockets init
 const socket = io();
 const fileReader = new FileReader();
@@ -36,6 +22,8 @@ else{
   socket.emit('uid', uid);
 }
 
+
+//three js init
 const canvas = document.querySelector('#clover3dview');
 const renderer = new THREE.WebGLRenderer({canvas});
 const fov = 75;
@@ -56,14 +44,31 @@ scene.add( light2 );
 const light3 = new THREE.DirectionalLight( 0x5900ff, 1, 100 );
 light3.position.set( -1000, -100, 100 );
 scene.add( light3 );
-renderer.setClearColor( 0x111111, 1);
 const gltfLoader = new GLTFLoader();
 //loading 3d model of clover
 let clover;
 gltfLoader.load('../../assets/Clover4.glb', (gltf) => {
   clover = gltf.scene;
   scene.add(clover);
-  clover.position.set(0.37, 0, 0);
+  clover.position.set(0.4, 0, 0);
+const boxWidth = 0.008;
+const boxHeight = 0.3;
+const boxDepth = 0.008;
+const axesgeometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+const zmaterial = new THREE.MeshBasicMaterial({color: 0x0000ff});
+const z = new THREE.Mesh(axesgeometry, zmaterial);
+scene.add(z);
+z.position.set(0.5, -0.2, -0.4);
+const xmaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+const x = new THREE.Mesh(axesgeometry, xmaterial);
+scene.add(x);
+x.position.set(0.5, -0.35, -0.25);
+x.rotation.x = Math.PI/2;
+const ymaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
+const y = new THREE.Mesh(axesgeometry, ymaterial);
+scene.add(y);
+y.position.set(0.646, -0.35, -0.4);
+y.rotation.z = Math.PI/2;
 //render
 function resizeRendererToDisplaySize(renderer) {
   const canvas = renderer.domElement;
@@ -86,24 +91,36 @@ function render() {
 }
 requestAnimationFrame(render);
 
-
 let previousRotation = {x: clover.rotation.x, y: clover.rotation.y, z: clover.rotation.z};
 function checkDisconnection(){
   if(previousRotation.x == clover.rotation.x && previousRotation.y == clover.rotation.y && previousRotation.z == clover.rotation.z){
-    document.querySelector('#status').innerHTML = 'Disconnected';
+    document.querySelector('#status').innerHTML = '🞄 Disconnected';
     document.querySelector('#status').style.color = 'red';
   }
   previousRotation.x = clover.rotation.x;
   previousRotation.y = clover.rotation.y;
   previousRotation.z = clover.rotation.z;
 }
-
 const checkDisconnectionInterval = setInterval(checkDisconnection, 4000);
 
+//welcome warn, instructions
+if(localStorage.getItem('cloverside') == null){
+  document.getElementById('cloverside').style.display = 'block';
+  document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo sh ./uninstall.sh</code>";
+  TweenLite.to('#cloverside', 0.1, {opacity: '1'});
+  localStorage.setItem('cloverside', true);
+}
 
+$("#getInstructions").click(function() {
+  document.getElementById('cloverside').style.display = 'block';
+  document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo sh ./uninstall.sh</code>";
+  TweenLite.to('#cloverside', 0.1, {opacity: '1'});
+});
+
+document.getElementById('settingslist').style.display = 'none';
 //map properties
 const resizemap = setInterval(function(){
-  document.getElementById('map').style.height = String(0.6*window.innerHeight)+'px';
+  document.getElementById('map').style.height = String(0.4*window.innerHeight)+'px';
 }, 100);
 let usermarker;
 const map = L.map('map');
@@ -138,23 +155,6 @@ map.locate({
   usermarker.setLatLng([e.latitude, e.longitude]);
 });
 
-//welcome warn, instructions
-if(localStorage.getItem('cloverside') == null){
-  document.getElementById('cloverside').style.display = 'block';
-  document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo sh ./uninstall.sh</code>";
-  TweenLite.to('#cloverside', 0.1, {opacity: '1'});
-  localStorage.setItem('cloverside', true);
-}
-
-//close welcome
-$("#closecloverside").click(function() {
-  TweenLite.to('#cloverside', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('cloverside').style.display = 'none';
-  }, 100);
-});
-
-
 //upload mission button 
 $('#mission').change(function() {
   if ($(this).val() != '') $(this).prev().text('Mission: ' + $(this)[0].files[0].name);
@@ -187,6 +187,7 @@ socket.on('missionOutput', (mission) => {
       }
     }
     else{
+      console.log(mission.error);
       document.getElementById('missionOuttext').innerText = 'Error: '+mission.error;
     }
     document.getElementById('missionOut').style.display = 'block';
@@ -208,7 +209,7 @@ $("#gp").click(function() {
 
 //return onclick
 $("#rtp").click(function() {
-  //if user has not changed the return to operator settings
+  //if user has not changed the return settings
   if(localStorage.getItem('rtowarnclosed') == null){
     document.getElementById('rtowarn').style.display = 'block';
     TweenLite.to('#rtowarn', 0.1, {opacity: '1'});
@@ -235,45 +236,11 @@ $("#rtp").click(function() {
   }
 });
 
-//close return warn
-$("#closertowarn").click(function() {
-  localStorage.setItem('rtowarnclosed', ' ');
-  TweenLite.to('#rtowarn', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('rtowarn').style.display = 'none';
-  }, 100);
-});
-
 //handle return function errors
 socket.on('rError', function(){
   document.getElementById('rtherror').style.display = 'block';
   TweenLite.to('#rtherror', 0.1, {opacity: '1'});
 });
-
-
-$("#closertowarn").click(function() {
-  localStorage.setItem('rtowarnclosed', ' ');
-  TweenLite.to('#rtowarn', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('rtowarn').style.display = 'none';
-  }, 100);
-});
-
-$("#closertherror").click(function() {
-  TweenLite.to('#rtherror', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('rtherror').style.display = 'none';
-  }, 100);
-});
-
-$("#closegpswarn").click(function() {
-  sessionStorage.setItem('gpswarnclosed', ' ');
-  TweenLite.to('#gpswarn', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('gpswarn').style.display = 'none';
-  }, 100);
-});
-
 
 //land onclick
 $("#l").click(function() {
@@ -290,7 +257,19 @@ $("#r").click(function() {
   socket.emit('req', {body: 'disarm'});
 });
 
+//open settings
+$('#settings').click(function() {
+  document.getElementById('settingslist').style.display = 'block';
+  TweenLite.to('#settingslist', 0.1, {opacity: '1'});
+});
 
+//close settings
+$("#closesettings").click(function() {
+  TweenLite.to('#settingslist', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('settingslist').style.display = 'none';
+  }, 100);
+});
 
 //automatically take photos
 function getautophoto(){
@@ -359,7 +338,41 @@ $('#savesettings').click(function() {
   setTimeout(function(){document.getElementById('savesettings').innerText = 'Save'}, 400);
 });
 
+//close warnings
 
+//if no gps data from clover
+$("#closegpswarn").click(function() {
+  sessionStorage.setItem('gpswarnclosed', ' ');
+  TweenLite.to('#gpswarn', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('gpswarn').style.display = 'none';
+  }, 100);
+});
+
+//if user has not changed the return to operator settings
+$("#closertowarn").click(function() {
+  localStorage.setItem('rtowarnclosed', ' ');
+  TweenLite.to('#rtowarn', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('rtowarn').style.display = 'none';
+  }, 100);
+});
+
+//close welcome
+$("#closecloverside").click(function() {
+  TweenLite.to('#cloverside', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('cloverside').style.display = 'none';
+  }, 100);
+});
+
+//close RTH func error
+$("#closertherror").click(function() {
+  TweenLite.to('#rtherror', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('rtherror').style.display = 'none';
+  }, 100);
+});
 
 //setting up drone marker
 let dronemarker;
@@ -380,11 +393,11 @@ socket.on('photofromclover', (photo) => {
 //handling telemetry stream from server
 socket.on('telemetrystream', (telem) => {
   if(!telem.armed){
-    document.querySelector('#status').innerHTML = 'Connected, Disarmed';
+    document.querySelector('#status').innerHTML = '🞄 Connected<br/>🞄 Disarmed';
     document.querySelector('#status').style.color = 'rgb(255, 102, 0)';
   }
   else{
-    document.querySelector('#status').innerHTML = 'Connected, In flight';
+    document.querySelector('#status').innerHTML = '🞄 Connected<br/>🞄 In flight';
     document.querySelector('#status').style.color = 'rgb(0, 255, 136)';
   }
   //move 3d model of clover
@@ -415,6 +428,5 @@ socket.on('telemetrystream', (telem) => {
   }
 
 });
-
 
 });
