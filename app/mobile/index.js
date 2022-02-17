@@ -179,7 +179,7 @@ $('#ub').click(function(){
 socket.on('missionOutput', (mission) => {
   if(mission.out || mission.error){
     if(mission.out){
-      if(mission.error){
+      if(!mission.error){
         document.getElementById('missionOuttext').innerText = 'Output of your code: '+mission.out;
       }
       else{
