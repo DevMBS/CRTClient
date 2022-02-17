@@ -187,7 +187,6 @@ socket.on('missionOutput', (mission) => {
       }
     }
     else{
-      console.log(mission.error);
       document.getElementById('missionOuttext').innerText = 'Error: '+mission.error;
     }
     document.getElementById('missionOut').style.display = 'block';
