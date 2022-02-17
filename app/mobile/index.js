@@ -230,4 +230,162 @@ socket.on('rError', function(){
   TweenLite.to('#rtherror', 0.1, {opacity: '1'});
 });
 
+
+$("#closertowarn").click(function() {
+  localStorage.setItem('rtowarnclosed', ' ');
+  TweenLite.to('#rtowarn', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('rtowarn').style.display = 'none';
+  }, 100);
+});
+
+$("#closertherror").click(function() {
+  TweenLite.to('#rtherror', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('rtherror').style.display = 'none';
+  }, 100);
+});
+
+//land onclick
+$("#l").click(function() {
+  socket.emit('req', {body: 'land'});
+});
+
+//hover onclick
+$("#h").click(function() {
+  socket.emit('req', {body: 'hover'});
+});
+
+//reboot onclick
+$("#r").click(function() {
+  socket.emit('req', {body: 'disarm'});
+});
+
+
+
+//automatically take photos
+function getautophoto(){
+  socket.emit('req', {body: 'photo'});
+}
+let autophotointerval;
+
+if(localStorage.getItem('action') == 'land'){
+  document.getElementById('a1').removeAttribute('selected');
+  document.getElementById('a2').setAttribute('selected', 'selected');
+}
+if(localStorage.getItem('returnto') == 'takeoffcoords'){
+  document.getElementById('rt1').removeAttribute('selected');
+  document.getElementById('rt2').setAttribute('selected', 'selected');
+}
+if(localStorage.getItem('alt') != null){
+  document.getElementById('rtosalt').value = parseInt(localStorage.getItem('alt'));
+}
+if(localStorage.getItem('speed') != null){
+  document.getElementById('rtosspeed').value = parseInt(localStorage.getItem('speed'));
+}
+
+//save settings
+$('#savesettings').click(function() {
+  localStorage.setItem('alt', document.getElementById('rtosalt').value);
+  localStorage.setItem('speed', document.getElementById('rtosspeed').value);
+  let action;
+  if(document.getElementById('action').value == 1){
+    action = 'hover';
+  }
+  else{
+    action = 'land';
+  }
+  localStorage.setItem('action', action);
+  let returnto;
+  if(document.getElementById('returnto').value == 1){
+    returnto = 'mycoords';
+  }
+  else{
+    returnto = 'takeoffcoords';
+  }
+  localStorage.setItem('returnto', returnto);
+  let autophoto;
+  if(document.getElementById('atp').value == 1){
+    autophoto = 'never';
+  }
+  else if(document.getElementById('atp').value == 2){
+    autophoto = 30000;
+  }
+  else if(document.getElementById('atp').value == 3){
+    autophoto = 60000;
+  }
+  else if(document.getElementById('atp').value == 4){
+    autophoto = 300000;
+  }
+  localStorage.setItem('autophoto', autophoto);
+  if(autophoto != 'never'){
+    autophotointerval = setInterval(getautophoto, autophoto);
+  }
+  else{
+    try {
+      clearInterval(autophotointerval);
+    } catch(e) {}
+  }
+  document.getElementById('savesettings').innerText = 'Saved!';
+  setTimeout(function(){document.getElementById('savesettings').innerText = 'Save'}, 400);
+});
+
+
+
+//setting up drone marker
+let dronemarker;
+let vIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+//handle base64 image data from server
+socket.on('photofromclover', (photo) => { 
+  document.getElementById('photo').innerHTML = '<img src = "data:image/png;base64, '+photo+'" id = "pfc"/>';
+});
+
+//handling telemetry stream from server
+socket.on('telemetrystream', (telem) => {
+  if(!telem.armed){
+    document.querySelector('#status').innerHTML = '🞄 Connected<br/>🞄 Disarmed';
+    document.querySelector('#status').style.color = 'rgb(255, 102, 0)';
+  }
+  else{
+    document.querySelector('#status').innerHTML = '🞄 Connected<br/>🞄 In flight';
+    document.querySelector('#status').style.color = 'rgb(0, 255, 136)';
+  }
+  //move 3d model of clover
+  clover.rotation.x = telem.roll;
+  clover.rotation.z = telem.pitch;
+  clover.rotation.y = telem.yaw;
+
+  //write altitude and voltage
+  document.querySelector('#alt').innerText = 'alt: '+telem.z.toFixed(1)+' m';
+  document.querySelector('#volt').innerText = telem.volt+' V';
+
+  //warning
+  //if there is no gps data from drone
+  if(sessionStorage.getItem('gpswarnclosed') == null && telem.lat == null){
+    document.getElementById('gpswarn').style.display = 'block';
+    TweenLite.to('#gpswarn', 0.1, {opacity: '1'});
+  }
+
+  //move drone marker on map
+  else if(telem.lat != null){
+      try {
+        let newLatLng = new L.LatLng(telem.lat, telem.lon);
+        dronemarker.setLatLng(newLatLng);
+      } catch (e) {
+        dronemarker = L.marker([telem.lat, telem.lon], {icon: vIcon}).addTo(map);
+        dronemarker.bindPopup("Your Drone");
+      }
+  }
+
+});
+
+
 });
