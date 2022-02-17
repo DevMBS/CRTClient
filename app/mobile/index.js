@@ -246,6 +246,15 @@ $("#closertherror").click(function() {
   }, 100);
 });
 
+$("#closegpswarn").click(function() {
+  sessionStorage.setItem('gpswarnclosed', ' ');
+  TweenLite.to('#gpswarn', 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById('gpswarn').style.display = 'none';
+  }, 100);
+});
+
+
 //land onclick
 $("#l").click(function() {
   socket.emit('req', {body: 'land'});
