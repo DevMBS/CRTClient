@@ -351,11 +351,11 @@ socket.on('photofromclover', (photo) => {
 //handling telemetry stream from server
 socket.on('telemetrystream', (telem) => {
   if(!telem.armed){
-    document.querySelector('#status').innerHTML = '🞄 Connected<br/>🞄 Disarmed';
+    document.querySelector('#status').innerHTML = 'Connected, Disarmed';
     document.querySelector('#status').style.color = 'rgb(255, 102, 0)';
   }
   else{
-    document.querySelector('#status').innerHTML = '🞄 Connected<br/>🞄 In flight';
+    document.querySelector('#status').innerHTML = 'Connected, In flight';
     document.querySelector('#status').style.color = 'rgb(0, 255, 136)';
   }
   //move 3d model of clover

@@ -253,3 +253,15 @@ select{
 #rtowarn{
   height: 30vh;
 }
+#alt{
+  position:absolute;
+  top: 80vh;
+  left: 10vw;
+  font-size: 1.8vh;
+}
+#volt{
+  position:absolute;
+  top: 80vh;
+  right: 10vw;
+  font-size: 1.8vh;
+}
