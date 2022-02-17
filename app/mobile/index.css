@@ -281,3 +281,12 @@ select{
 #snp{
   font-size: 1.8vh;
 }
+#gpswarn{
+  height: 50vh;
+}
+#rtowarn{
+  height: 20vh;
+}
+#rtherror{
+  height: 15vh;
+}
