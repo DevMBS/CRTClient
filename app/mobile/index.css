@@ -257,7 +257,7 @@ select{
   position:absolute;
   top: 90vh;
   left: 10vw;
-  font-size: 1.8vh;
+  font-size: 1.9vh;
   color:rgb(255, 239, 215);
   font-family: 'Roboto', sans-serif;
 }
@@ -265,7 +265,7 @@ select{
   position:absolute;
   top: 90vh;
   right: 10vw;
-  font-size: 1.8vh;
+  font-size: 1.9vh;
   color:rgb(255, 239, 215);
   font-family: 'Roboto', sans-serif;
 }
@@ -277,4 +277,7 @@ select{
 #photo{
   width: 100%;
   height: 40vh;
+}
+#snp{
+  font-size: 1.8vh;
 }
