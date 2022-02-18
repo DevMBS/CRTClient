@@ -8,6 +8,9 @@ window.onload = function(){
   TweenMax.to('.pace', 0.7, {opacity: 0});
   setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
 }
+
+let switchToMobileVersionInterval = setInterval(function(){if(screen.width<screen.height){location.href="../mobile/index.html"}}, 500);
+
 //three js lib import
 import * as THREE from '../../assets/three.js';
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
