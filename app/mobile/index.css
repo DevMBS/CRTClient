@@ -293,3 +293,6 @@ select{
 #missionOut{
   height: 60vh;
 }
+a{
+  color:rgb(255, 239, 215);
+}

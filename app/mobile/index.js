@@ -8,6 +8,9 @@ window.onload = function(){
   setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
 }
 document.querySelector('#status').style.color = 'red';
+
+let switchToDesktopVersionInterval = setInterval(function(){if(screen.width>screen.height){location.href="../desktop/index.html"}}, 500);
+
 import * as THREE from '../../assets/three.js';
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
 const swiper = new Swiper(".container", {
