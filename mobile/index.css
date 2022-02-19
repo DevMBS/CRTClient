@@ -5,14 +5,15 @@ body{
     color:rgb(255, 239, 215);
     margin: 0;
     scroll-behavior: smooth;
+    overflow-x:hidden;
 }
 #rpi{
     position: absolute;
-    height: 35%;
+    height: 35vh;
     width: 100%;
     filter: brightness(30%) blur(5px);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 10%);
-    
+    object-fit:cover;
 }
 #title1{
     position: absolute;
@@ -21,7 +22,7 @@ body{
     width: 100%;
     height: 30%;
     font-family: 'Quicksand', sans-serif;
-    font-size: 400%;
+    font-size: 0.5vh;
     text-align: center;
 }
 #title2{
@@ -30,7 +31,7 @@ body{
     width: 100%;
     height: 71%;
     font-family: 'Quicksand', sans-serif;
-    font-size: 400%;
+    font-size: 3vh;
     top: 29%;
     text-align: center;
     clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 0% 60%);
@@ -39,26 +40,20 @@ body{
     position: absolute;
     top: 71%;
     width: 100%;
-    height: 25%;
+    height: 25vh;
     filter: brightness(30%) blur(5px);
     clip-path: polygon(0% 0%, 100% 70%, 100% 100%, 0% 100%);
+    object-fit:cover;
 }
 #down{
     filter: invert(100%);
-    width: 70%;
-    height: 70%;
+    width: 6vw;
+    height: 6vw;
     position: absolute;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-}
-#footer{
-    position: absolute;
-    height: 2%;
-    width: 100%;
     top: 98%;
-    box-shadow: 0 -50px 80px black;
-    color: #000;
 }
 p{
     position: absolute;
@@ -69,11 +64,11 @@ p{
 }
 #pt{
     font-family: 'Quicksand', sans-serif;
-    font-size: 600%;
+    font-size: 5vh;
     top: 120%;
 }
 #p{
-    font-size: 240%;
+    font-size: 2vh;
     font-family: 'Roboto', sans-serif;
     top: 160%;
     background-color: #111;
@@ -85,12 +80,12 @@ p{
 }
 
 #rht{
-    font-size: 600%;
+    font-size: 3.5vh;
     font-family: 'Quicksand', sans-serif;
     top: 220%;
 }
 #rh{
-    font-size: 240%;
+    font-size: 2vh;
     font-family: 'Roboto', sans-serif;
     top: 260%;
     width: 100%;
@@ -101,12 +96,12 @@ p{
     padding-right: 1%;
 }
 #rt{
-    font-size: 600%;
+    font-size: 5vh;
     font-family: 'Quicksand', sans-serif;
     top: 320%;
 }
 #rt2{
-    font-size: 400%;
+    font-size: 4vh;
     font-family: 'Quicksand', sans-serif;
     top: 330%;
 }
@@ -118,9 +113,9 @@ input, #signup{
     color: rgb(255, 239, 215);
     background-color: black;
     border-radius: 50px;
-    width: 80%;
+    width: 80vw;
     position: absolute;
-    font-size: 400%;
+    font-size: 3.5vh;
     font-family: 'Roboto', sans-serif;
     padding-left: 15px;
     padding-right: 15px;
@@ -147,7 +142,7 @@ input, #signup{
     transform: translate(-50%, -50%);
     text-align: center;
     top: 400%;
-    font-size: 240%;
+    font-size: 1.9vh;
     color: red;
     font-family: 'Roboto', sans-serif;
 }
@@ -158,13 +153,13 @@ input, #signup{
     transform: translate(-50%, -50%);
     text-align: center;
     top: 420%;
-    font-size: 150%;
+    font-size: 1.4vh;
     font-family: 'Roboto', sans-serif;
 }
 #signin, #app{
     border: none;
     width: 50%;
-    font-size: 300%;
+    font-size: 2.5vh;
     outline:none;
     color: rgb(255, 239, 215);
     background-color: #111;
@@ -195,10 +190,7 @@ input, #signup{
     position: fixed;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%) scale(2.5);
+    transform: translate(-50%, -50%);
     top: 50%;
     box-shadow: 0px 0px 15px #111;
-}
-.pace{
-    transform: scale(2.5);
 }
