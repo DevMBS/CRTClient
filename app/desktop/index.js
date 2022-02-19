@@ -109,18 +109,28 @@ function checkDisconnection(){
 }
 const checkDisconnectionInterval = setInterval(checkDisconnection, 4000);
 
+function popUp(block){
+  document.getElementById(block).style.display = 'block';
+  TweenLite.to('#'+block, 0.1, {opacity: '1'});
+}
+
+function close(block){
+  TweenLite.to('#'+block, 0.1, {opacity: '0'});
+  setTimeout(function(){
+    document.getElementById(block).style.display = 'none';
+  }, 100);
+}
+
 //welcome warn, instructions
 if(localStorage.getItem('cloverside') == null){
-  document.getElementById('cloverside').style.display = 'block';
   document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo sh ./uninstall.sh</code>";
-  TweenLite.to('#cloverside', 0.1, {opacity: '1'});
   localStorage.setItem('cloverside', true);
+  popUp('cloverside');
 }
 
 $("#getInstructions").click(function() {
-  document.getElementById('cloverside').style.display = 'block';
   document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo sh ./uninstall.sh</code>";
-  TweenLite.to('#cloverside', 0.1, {opacity: '1'});
+  popUp('cloverside');
 });
 
 document.getElementById('settingslist').style.display = 'none';
@@ -195,16 +205,12 @@ socket.on('missionOutput', (mission) => {
     else{
       document.getElementById('missionOuttext').innerText = 'Error: '+mission.error;
     }
-    document.getElementById('missionOut').style.display = 'block';
-    TweenLite.to('#missionOut', 0.1, {opacity: '1'});
+    popUp('missionOut');
   }
 });
 
 $("#closemissionOut").click(function() {
-  TweenLite.to('#missionOut', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('missionOut').style.display = 'none';
-  }, 100);
+  close('missionOut');
 });
 
 //send photo onclick
@@ -216,8 +222,7 @@ $("#gp").click(function() {
 $("#rtp").click(function() {
   //if user has not changed the return settings
   if(localStorage.getItem('rtowarnclosed') == null){
-    document.getElementById('rtowarn').style.display = 'block';
-    TweenLite.to('#rtowarn', 0.1, {opacity: '1'});
+    popUp('rtowarn');
   }
   else{
     if(localStorage.getItem('returnto') == 'mycoords'){
@@ -243,8 +248,7 @@ $("#rtp").click(function() {
 
 //handle return function errors
 socket.on('rError', function(){
-  document.getElementById('rtherror').style.display = 'block';
-  TweenLite.to('#rtherror', 0.1, {opacity: '1'});
+  popUp('rtherror');
 });
 
 //land onclick
@@ -264,16 +268,12 @@ $("#r").click(function() {
 
 //open settings
 $('#settings').click(function() {
-  document.getElementById('settingslist').style.display = 'block';
-  TweenLite.to('#settingslist', 0.1, {opacity: '1'});
+  popUp('settingslist');
 });
 
 //close settings
 $("#closesettings").click(function() {
-  TweenLite.to('#settingslist', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('settingslist').style.display = 'none';
-  }, 100);
+  close('settingslist');
 });
 
 //automatically take photos
@@ -330,7 +330,6 @@ $('#savesettings').click(function() {
   else if(document.getElementById('atp').value == 4){
     autophoto = 300000;
   }
-  localStorage.setItem('autophoto', autophoto);
   if(autophoto != 'never'){
     autophotointerval = setInterval(getautophoto, autophoto);
   }
@@ -348,35 +347,23 @@ $('#savesettings').click(function() {
 //if no gps data from clover
 $("#closegpswarn").click(function() {
   sessionStorage.setItem('gpswarnclosed', ' ');
-  TweenLite.to('#gpswarn', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('gpswarn').style.display = 'none';
-  }, 100);
+  close('gpswarn');
 });
 
 //if user has not changed the return to operator settings
 $("#closertowarn").click(function() {
   localStorage.setItem('rtowarnclosed', ' ');
-  TweenLite.to('#rtowarn', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('rtowarn').style.display = 'none';
-  }, 100);
+  close('rtowarn');
 });
 
 //close welcome
 $("#closecloverside").click(function() {
-  TweenLite.to('#cloverside', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('cloverside').style.display = 'none';
-  }, 100);
+  close('cloverside');
 });
 
 //close RTH func error
 $("#closertherror").click(function() {
-  TweenLite.to('#rtherror', 0.1, {opacity: '0'});
-  setTimeout(function(){
-    document.getElementById('rtherror').style.display = 'none';
-  }, 100);
+  close('rtherror');
 });
 
 //setting up drone marker
@@ -417,8 +404,7 @@ socket.on('telemetrystream', (telem) => {
   //warning
   //if there is no gps data from drone
   if(sessionStorage.getItem('gpswarnclosed') == null && telem.lat == null){
-    document.getElementById('gpswarn').style.display = 'block';
-    TweenLite.to('#gpswarn', 0.1, {opacity: '1'});
+    popUp('gpswarn');
   }
 
   //move drone marker on map
