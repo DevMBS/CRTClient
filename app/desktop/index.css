@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap');
 body{
     background-color: black;
     color:rgb(255, 239, 215);
@@ -321,4 +322,7 @@ select{
     transform: translate(-50%, -50%);
     top: 50%;
     box-shadow: 0px 0px 15px #111;
+}
+code{
+    font-family: 'Source Code Pro', monospace;
 }
