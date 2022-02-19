@@ -2,6 +2,11 @@
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/mobile/serviceworker.js');
 }
+window.onload = function(){
+  TweenMax.to('#loading', 0.7, {opacity: 0});
+  TweenMax.to('.pace', 0.7, {opacity: 0});
+  setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
+}
 document.querySelector('#status').style.color = 'red';
 
 let switchToDesktopVersionInterval = setInterval(function(){if(screen.width>screen.height){location.href="../desktop/index.html"}}, 500);
@@ -61,9 +66,6 @@ let clover;
 gltfLoader.load('../../assets/Clover4.glb', (gltf) => {
   clover = gltf.scene;
   scene.add(clover);
-  TweenMax.to('#loading', 0.7, {opacity: 0});
-  TweenMax.to('.pace', 0.7, {opacity: 0});
-  setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
   clover.position.set(0.37, 0, 0);
 //render
 function resizeRendererToDisplaySize(renderer) {
