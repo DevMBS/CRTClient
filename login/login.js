@@ -1,6 +1,6 @@
 const socket = io();
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('../mobile/serviceworker.js');
+    navigator.serviceWorker.register('/mobile/serviceworker.js');
 }
 window.onload = function(){
     TweenMax.to('#loading', 0.7, {opacity: 0});
