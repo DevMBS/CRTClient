@@ -1,6 +1,6 @@
 'use strict';
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('../../mobile/serviceworker.js');
+  navigator.serviceWorker.register('/mobile/serviceworker.js');
 }
 document.querySelector('#status').style.color = 'red';
 window.onload = function(){
