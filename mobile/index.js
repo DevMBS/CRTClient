@@ -5,8 +5,9 @@ window.onload = function(){
     setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
     TweenMax.to('#down', 0.6, {y:"-=20", yoyo:true, repeat:9999});
 }
+let switchToDesktopVersionInterval = setInterval(function(){if(screen.width>screen.height){location.href="../"}}, 500);
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./serviceworker.js');
+  navigator.serviceWorker.register('/mobile/serviceworker.js');
 }
 function signup(){
     document.querySelector('#signup').style.display = 'none';
