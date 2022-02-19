@@ -14,6 +14,8 @@ let switchToMobileVersionInterval = setInterval(function(){if(screen.width<scree
 //three js lib import
 import * as THREE from '../../assets/three.js';
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
+import {DRACOLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/DRACOLoader.js';
+DRACOLoader.setDecoderPath( '/assets/draco_decoder.js' );
 //sockets init
 const socket = io();
 const fileReader = new FileReader();
@@ -48,9 +50,10 @@ const light3 = new THREE.DirectionalLight( 0x5900ff, 1, 100 );
 light3.position.set( -1000, -100, 100 );
 scene.add( light3 );
 const gltfLoader = new GLTFLoader();
+gltfLoader.setDRACOLoader( new DRACOLoader() );
 //loading 3d model of clover
 let clover;
-gltfLoader.load('../../assets/Clover4.glb', (gltf) => {
+gltfLoader.load('../../assets/CloverCompressed.glb', (gltf) => {
   clover = gltf.scene;
   scene.add(clover);
   clover.position.set(0.4, 0, 0);
