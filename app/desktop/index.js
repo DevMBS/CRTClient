@@ -1,34 +1,46 @@
 'use strict';
+//register service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/mobile/serviceworker.js');
 }
+//set default status color
 document.querySelector('#status').style.color = 'red';
+
+//hide preloader on window load
 window.onload = function(){
   TweenMax.to('#loading', 0.7, {opacity: 0});
   TweenMax.to('.pace', 0.7, {opacity: 0});
   setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
 }
 
+//switch to mobile version on orientation change
 let switchToMobileVersionInterval = setInterval(function(){if(screen.width<screen.height){location.href="../mobile/index.html"}}, 500);
 
-//three js lib import
+//three.js import
 import * as THREE from '../../assets/three.js';
+//3d model in the .glb format, so we need the GLTF loader
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
+//the model of Clover is compressed (6mb -> 168kb), so we need the draco decoder to correctly display it
 import {DRACOLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/DRACOLoader.js';
+//initalize decoders
 DRACOLoader.setDecoderPath( '/assets/draco_decoder.js' );
 //sockets init
 const socket = io();
+//set up the file reader to read the code file and upload  it's contents to the server
 const fileReader = new FileReader();
+//get the user's uid from the LocalStorage
 const uid = localStorage.getItem('uid');
 if(uid == null){
+  //if user don't logged in
   location.href = '../../login/';
 }
 else{
+  //send user's uid to the server
   socket.emit('uid', uid);
 }
 
 
-//three js init
+//three.js standard setting
 const canvas = document.querySelector('#clover3dview');
 const renderer = new THREE.WebGLRenderer({canvas});
 const fov = 75;
@@ -49,14 +61,16 @@ scene.add( light2 );
 const light3 = new THREE.DirectionalLight( 0x5900ff, 1, 100 );
 light3.position.set( -1000, -100, 100 );
 scene.add( light3 );
+//loaders init
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader( new DRACOLoader() );
-//loading 3d model of clover
+//load 3d model of Clover
 let clover;
 gltfLoader.load('../../assets/CloverCompressed.glb', (gltf) => {
   clover = gltf.scene;
   scene.add(clover);
   clover.position.set(0.4, 0, 0);
+//add axes to the scene (x y z)
 const boxWidth = 0.008;
 const boxHeight = 0.3;
 const boxDepth = 0.008;
@@ -75,7 +89,7 @@ const y = new THREE.Mesh(axesgeometry, ymaterial);
 scene.add(y);
 y.position.set(0.646, -0.35, -0.4);
 y.rotation.z = Math.PI/2;
-//render
+//render scene
 function resizeRendererToDisplaySize(renderer) {
   const canvas = renderer.domElement;
   const width = canvas.clientWidth;
@@ -97,6 +111,8 @@ function render() {
 }
 requestAnimationFrame(render);
 
+//check disconnection (if model of Clover don't move) - the gyroscope on the drone is quite sensitive, so even at seemingly complete rest, 
+//the data taken at an interval of 4 seconds will differ, so if they are the same, it means that telemetry from the drone is not sent to the server and the Clover model is not updated
 let previousRotation = {x: clover.rotation.x, y: clover.rotation.y, z: clover.rotation.z};
 function checkDisconnection(){
   if(previousRotation.x == clover.rotation.x && previousRotation.y == clover.rotation.y && previousRotation.z == clover.rotation.z){
@@ -109,6 +125,7 @@ function checkDisconnection(){
 }
 const checkDisconnectionInterval = setInterval(checkDisconnection, 4000);
 
+//set up functions for opening and closing warns
 function popUp(block){
   document.getElementById(block).style.display = 'block';
   TweenLite.to('#'+block, 0.1, {opacity: '1'});
@@ -121,18 +138,18 @@ function close(block){
   }, 100);
 }
 
-//welcome warn, instructions
+//welcome window, instructions
 if(localStorage.getItem('cloverside') == null){
   document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo sh ./uninstall.sh</code>";
   localStorage.setItem('cloverside', true);
   popUp('cloverside');
 }
 
+//close instructions
 $("#getInstructions").click(function() {
   document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo sh ./uninstall.sh</code>";
   popUp('cloverside');
 });
-
 document.getElementById('settingslist').style.display = 'none';
 //map properties
 const resizemap = setInterval(function(){
@@ -147,6 +164,7 @@ const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
     tileSize: 512,
     zoomOffset: -1
 }).addTo(map);
+//get user location
 const options = {
     enableHighAccuracy: true,
     timeout: 10000,
@@ -155,7 +173,7 @@ const options = {
 function success(pos) {
   const crd = pos.coords;
   map.setView([crd.latitude, crd.longitude], 30);
-  //setiting 'you' marker on map and getting user's coords
+  //setiting 'you' marker on map and getting user coords
   usermarker = L.marker([crd.latitude, crd.longitude]).addTo(map);
   usermarker.bindPopup("You");
 };
@@ -164,6 +182,7 @@ function error(err) {
 };
 navigator.geolocation.getCurrentPosition(success, error, options);
 
+//enable user position tracking
 map.locate({
   watch: true,
   enableHighAccuracy: true
@@ -171,21 +190,25 @@ map.locate({
   usermarker.setLatLng([e.latitude, e.longitude]);
 });
 
-//upload mission button 
+//upload mission button onclick
 $('#mission').change(function() {
   if ($(this).val() != '') $(this).prev().text('Mission: ' + $(this)[0].files[0].name);
   else $(this).prev().text('Choose code file');
 });
 $('#ub').click(function(){
+  //get choosed file
   let file = document.getElementById("mission").files[0];
   if (file) {
+    //read it's contents
     fileReader.readAsText(file, "UTF-8");
     fileReader.onload = function(evt) {
+        //send content to the server
         socket.emit('newMission', evt.target.result);
         document.getElementById('ub').innerText = 'Running...';
         setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run';document.getElementById('fl').innerText = 'Choose code file';}, 1000);
     }
   }
+  //if upload button was pressed without choosing a file
   else{
     document.getElementById('ub').innerText = 'Please choose code file to upload!';
   }
@@ -205,27 +228,31 @@ socket.on('missionOutput', (mission) => {
     else{
       document.getElementById('missionOuttext').innerText = 'Error: '+mission.error;
     }
+    //display output
     popUp('missionOut');
   }
 });
 
+//close mission output
 $("#closemissionOut").click(function() {
   close('missionOut');
 });
 
-//send photo onclick
+//send photo button onclick
 $("#gp").click(function() {
   socket.emit('req', {body: 'photo'});
 });
 
-//return onclick
+//return button onclick
 $("#rtp").click(function() {
   //if user has not changed the return settings
   if(localStorage.getItem('rtowarnclosed') == null){
     popUp('rtowarn');
   }
   else{
+    //if user choosed 'return to my coordinates'
     if(localStorage.getItem('returnto') == 'mycoords'){
+      //get user coordinates
       const options = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -233,6 +260,7 @@ $("#rtp").click(function() {
       };
       function success(pos) {
         const crd = pos.coords;
+        //send return request to the server
         socket.emit('req', {body: 'returnToHome', data: {to: 'user', lat: crd.latitude, lon: crd.longitude, alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
       };
       function error(err) {
@@ -240,6 +268,7 @@ $("#rtp").click(function() {
       };
       navigator.geolocation.getCurrentPosition(success, error, options);
     }
+    //if user choosed 'return to the drone takeoff place' (coordinates of the first arming with gps)
     else{
       socket.emit('req', {body: 'returnToHome', data: {to: 'takeoff', alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
     }
@@ -282,6 +311,7 @@ function getautophoto(){
 }
 let autophotointerval;
 
+//change selected options
 if(localStorage.getItem('action') == 'land'){
   document.getElementById('a1').removeAttribute('selected');
   document.getElementById('a2').setAttribute('selected', 'selected');
@@ -297,10 +327,12 @@ if(localStorage.getItem('speed') != null){
   document.getElementById('rtosspeed').value = parseInt(localStorage.getItem('speed'));
 }
 
-//save settings
+//save settings button onclick
 $('#savesettings').click(function() {
+  //save altitude and speed of return
   localStorage.setItem('alt', document.getElementById('rtosalt').value);
   localStorage.setItem('speed', document.getElementById('rtosspeed').value);
+  //save action after return
   let action;
   if(document.getElementById('action').value == 1){
     action = 'hover';
@@ -309,6 +341,7 @@ $('#savesettings').click(function() {
     action = 'land';
   }
   localStorage.setItem('action', action);
+  //save return place
   let returnto;
   if(document.getElementById('returnto').value == 1){
     returnto = 'mycoords';
@@ -317,6 +350,7 @@ $('#savesettings').click(function() {
     returnto = 'takeoffcoords';
   }
   localStorage.setItem('returnto', returnto);
+  //enable auto photo requesting
   let autophoto;
   if(document.getElementById('atp').value == 1){
     autophoto = 'never';
@@ -342,31 +376,29 @@ $('#savesettings').click(function() {
   setTimeout(function(){document.getElementById('savesettings').innerText = 'Save'}, 400);
 });
 
-//close warnings
-
-//if no gps data from clover
+//close 'no gps' warning
 $("#closegpswarn").click(function() {
   sessionStorage.setItem('gpswarnclosed', ' ');
   close('gpswarn');
 });
 
-//if user has not changed the return to operator settings
+//close return warning
 $("#closertowarn").click(function() {
   localStorage.setItem('rtowarnclosed', ' ');
   close('rtowarn');
 });
 
-//close welcome
+//close instructions
 $("#closecloverside").click(function() {
   close('cloverside');
 });
 
-//close RTH func error
+//close RTH function error
 $("#closertherror").click(function() {
   close('rtherror');
 });
 
-//setting up drone marker
+//set up drone marker
 let dronemarker;
 let vIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
@@ -377,13 +409,14 @@ let vIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
-//handle base64 image data from server
+//handle and display base64 image data from the server
 socket.on('photofromclover', (photo) => { 
   document.getElementById('photo').innerHTML = '<img src = "data:image/png;base64, '+photo+'" id = "pfc"/>';
 });
 
-//handling telemetry stream from server
+//handle telemetry stream from the server
 socket.on('telemetrystream', (telem) => {
+  //set status of the drone
   if(!telem.armed){
     document.querySelector('#status').innerHTML = '🞄 Connected<br/>🞄 Disarmed';
     document.querySelector('#status').style.color = 'rgb(255, 102, 0)';
@@ -392,22 +425,21 @@ socket.on('telemetrystream', (telem) => {
     document.querySelector('#status').innerHTML = '🞄 Connected<br/>🞄 In flight';
     document.querySelector('#status').style.color = 'rgb(0, 255, 136)';
   }
-  //move 3d model of clover
+  //move 3d model of Clover
   clover.rotation.x = telem.pitch;
   clover.rotation.z = telem.roll;
   clover.rotation.y = telem.yaw;
 
-  //write altitude and voltage
+  //display altitude and voltage
   document.querySelector('#alt').innerText = 'alt: '+telem.z.toFixed(1)+' m';
   document.querySelector('#volt').innerText = telem.volt+' V';
 
-  //warning
-  //if there is no gps data from drone
+  //warning: 'no gps data from the drone'
   if(sessionStorage.getItem('gpswarnclosed') == null && telem.lat == null){
     popUp('gpswarn');
   }
 
-  //move drone marker on map
+  //move drone marker on the map (drone location tracking)
   else if(telem.lat != null){
       try {
         let newLatLng = new L.LatLng(telem.lat, telem.lon);
