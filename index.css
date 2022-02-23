@@ -9,7 +9,7 @@ body{
 }
 #title{
     position: absolute;
-    top: 35vh;
+    top: 35%;
     font-size: 5vw;
     font-family: 'Quicksand', sans-serif;
     left: 50%;
@@ -21,13 +21,14 @@ body{
     width: 100%;
     height: 100%;
     filter: grayscale(10%) brightness(20%);
-    object-fit:cover;
+    object-fit:contain;
+    min-height: 400px;
 }
 #down{
     width: 2vw;
     height: 2vw;
     position: absolute;
-    top: 95%;
+    top: 95vh;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -38,14 +39,14 @@ body{
     height: 90vh;
     position: absolute;
     margin-left: 10vh;
-    top: 120%;
+    top: 120vh;
     filter: grayscale(10%) brightness(20%);
     object-fit:contain;
 }
 #pt{
     position: absolute;
     font-size: 4vw;
-    top: 130%;
+    top: 130vh;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -55,13 +56,13 @@ body{
 #p{
     position: absolute;
     font-size: 1.5vw;
-    top: 150%;
+    top: 150vh;
     text-align:center;
     font-family: 'Roboto', sans-serif;
 }
 #mb2{
     position: absolute;
-    top: 250%;
+    top: 250vh;
     right: 3vw;
     filter: brightness(40%);
     height: 40vh;
@@ -70,37 +71,37 @@ body{
 }
 #mb3{
     position: absolute;
-    top: 280%;
-    right: 9vw;
+    top: 280vh;
+    right: 12vw;
     filter: brightness(40%);
-    height: 50vh;
-    width: 50vh;
+    height: 20vw;
+    width: 20vw;
     object-fit:contain;
 }
 #mb4{
     position: absolute;
-    top: 270%;
+    top: 270vh;
     right: -5vw;
     filter: brightness(40%);
-    height: 80vh;
+    height: 40vw;
     width: 30vw;
     object-fit:contain;
 }
 #rht{
     position: absolute;
-    top: 250%;
+    top: 250vh;
     font-size: 4vw;
     font-family: 'Quicksand', sans-serif;
 }
 #rh{
     position: absolute;
-    top: 280%;
+    top: 280vh;
     font-size: 2vw;
     font-family: 'Roboto', sans-serif;
 }
 #rt{
     position: absolute;
-    top: 350%;
+    top: 350vh;
     font-size: 4vw;
     font-family: 'Quicksand', sans-serif;
     text-align: center;
@@ -110,7 +111,7 @@ body{
 }
 #rt2{
     position: absolute;
-    top: 370%;
+    top: 370vh;
     font-size: 1.8vw;
     font-family: 'Quicksand', sans-serif;
     text-align: center;
@@ -135,7 +136,7 @@ input, button{
 }
 #signupcont{
     position: absolute;
-    top: 390%;
+    top: 390vh;
     width: 100%;
 }
 
@@ -155,7 +156,7 @@ input, button{
 }
 #floor{
     position: absolute;
-    top: 450%;
+    top: 450vh;
     font-size: 1.2vw;
     font-family: 'Roboto', sans-serif;
     left: 50%;
@@ -178,7 +179,7 @@ input, button{
     margin: 4vw;
 }
 #menucont{
-    top: 10%;
+    top: 10vh;
     position: absolute;
     left: 50%;
     margin-right: -50%;
@@ -192,7 +193,7 @@ input, button{
 }
 
 #login{
-    top: 8%;
+    top: 8vh;
     left: 87%;
     cursor: pointer;
     font-size: 1.1vw;
@@ -222,7 +223,7 @@ input, button{
     font-size: 1.1vw;
 }
 #app{
-    top: 8%;
+    top: 8vh;
     right: 87%;
     cursor: pointer;
     font-size: 1.1vw;
