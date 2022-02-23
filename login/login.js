@@ -11,10 +11,13 @@ window.onload = function(){
     setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
 }
 
+//switch to the mobile/desktop version on orientation change
+let checkOrientationInterval = setInterval(()=>{if(window.innerWidth<window.innerHeight){let mobile = document.createElement('link');mobile.href = 'mobile.css';mobile.rel = 'stylesheet';mobile.id='mobilecss';document.getElementsByTagName('head')[0].appendChild(mobile)}else if(window.innerWidth>window.innerHeight && document.querySelector('#mobilecss')){document.querySelector('#mobilecss').remove()}}, 500);
+
 //sign in button onclick
 function signin(){
     //hide button
-    document.querySelector('#signin').style.display = 'none';
+    document.querySelector('#signin').setAttribute('disabled', 'disabled');
     //set forbidden characters
     const forbchars = '!@#$%^&*(){}[]:;"\'\\/<>?`~№+=';
     let i = 0;
@@ -24,7 +27,7 @@ function signin(){
             if(forbchars.includes(char)){
                 TweenMax.to('#'+el, 0.1, {x:"+=20", yoyo:true, repeat:5});
                 document.querySelector('#status').innerText = 'Please enter a username without special characters like !@#$%^&*';
-                document.querySelector('#signin').style.display = 'block';
+                setTimeout(()=>{document.querySelector('#signin').removeAttribute('disabled')}, 600);
                 document.getElementById(el).value = '';
                 i += 1;
             }
@@ -39,7 +42,7 @@ function signin(){
             TweenMax.to('#password', 0.1, {x:"+=20", yoyo:true, repeat:5});
         }
         document.querySelector('#status').innerText = 'Please complete all of fields!';
-        document.querySelector('#signin').style.display = 'block';
+        setTimeout(()=>{document.querySelector('#signin').removeAttribute('disabled')}, 600);
     }
     else{
         csc("nickname");
