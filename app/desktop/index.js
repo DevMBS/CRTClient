@@ -14,7 +14,7 @@ window.onload = function(){
 }
 
 //switch to mobile version on orientation change
-let switchToMobileVersionInterval = setInterval(function(){if(screen.width<screen.height){location.href="../mobile/index.html"}}, 500);
+let switchToMobileVersionInterval = setInterval(function(){if(window.innerWidth<window.innerHeight){location.href="../mobile/index.html"}}, 500);
 
 //three.js import
 import * as THREE from '../../assets/three.js';
@@ -193,7 +193,7 @@ map.locate({
 //upload mission button onclick
 $('#mission').change(function() {
   if ($(this).val() != '') $(this).prev().text('Mission: ' + $(this)[0].files[0].name);
-  else $(this).prev().text('Choose code file');
+  else $(this).prev().text('Choose code');
 });
 $('#ub').click(function(){
   //get choosed file
@@ -205,7 +205,7 @@ $('#ub').click(function(){
         //send content to the server
         socket.emit('newMission', evt.target.result);
         document.getElementById('ub').innerText = 'Running...';
-        setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run';document.getElementById('fl').innerText = 'Choose code file';}, 1000);
+        setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run';document.getElementById('fl').innerText = 'Choose code';}, 1000);
     }
   }
   //if upload button was pressed without choosing a file
