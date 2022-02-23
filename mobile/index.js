@@ -8,7 +8,7 @@ window.onload = function(){
     TweenMax.to('#down', 0.6, {y:"-=20", yoyo:true, repeat:9999});
 }
 //switch to the desktop version on orientation change
-let switchToDesktopVersionInterval = setInterval(function(){if(screen.width>screen.height){location.href="../"}}, 500);
+let switchToDesktopVersionInterval = setInterval(function(){if(window.innerWidth>window.innerHeight){location.href="../"}}, 500);
 //register service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./serviceworker.js');
@@ -16,7 +16,7 @@ if ('serviceWorker' in navigator) {
 //sign up button onclick
 function signup(){
     //hide button
-    document.querySelector('#signup').style.display = 'none';
+    document.querySelector('#signup').setAttribute('disabled', 'disabled');
     //set forbidden caracters for the nickname
     const forbchars = '!@#$%^&*(){}[]:;"\'\\/<>?`~№+=';
     //forbchars counter
@@ -27,7 +27,7 @@ function signup(){
             if(forbchars.includes(char)){
                 TweenMax.to('#'+el, 0.1, {x:"+=20", yoyo:true, repeat:5});
                 document.querySelector('#status').innerText = 'Please enter a username without special characters like !@#$%^&*';
-                document.querySelector('#signup').style.display = 'block';
+                setTimeout(()=>{document.querySelector('#signup').removeAttribute('disabled')}, 600);
                 document.getElementById(el).value = '';
                 i += 1;
             }
@@ -42,7 +42,7 @@ function signup(){
             TweenMax.to('#password', 0.1, {x:"+=20", yoyo:true, repeat:5});
         }
         document.querySelector('#status').innerText = 'Please complete all of fields!';
-        document.querySelector('#signup').style.display = 'block';
+        setTimeout(()=>{document.querySelector('#signup').removeAttribute('disabled')}, 600);
     }
     else{
         //check forb chars
