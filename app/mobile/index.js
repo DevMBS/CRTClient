@@ -13,7 +13,7 @@ window.onload = function(){
 document.querySelector('#status').style.color = 'red';
 
 //switch to the desktop version on orientation change
-let switchToDesktopVersionInterval = setInterval(function(){if(screen.width>screen.height){location.href="../desktop/index.html"}}, 500);
+let switchToDesktopVersionInterval = setInterval(function(){if(window.innerWidth>window.innerHeight){location.href="../desktop/index.html"}}, 500);
 
 //import Three.js library to display the 3d model of Clover
 import * as THREE from '../../assets/three.js';
