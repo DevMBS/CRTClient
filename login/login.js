@@ -1,5 +1,5 @@
 //socket.io clientside library initialization
-const socket = io();
+const socket = io('/');
 //register service worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/mobile/serviceworker.js');
