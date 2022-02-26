@@ -277,6 +277,11 @@ $("#rtp").click(function() {
 
 //handle return function errors
 socket.on('rError', function(){
+  document.getElementById('rtherrortext').innerText = 'The drone cannot be returned because it has no GPS data.';
+  popUp('rtherror');
+});
+socket.on('rTakeoffError', function(){
+  document.getElementById('rtherrortext').innerText = 'The drone cannot be returned to the takeoff coordinates because it has not yet taken off with gps data since the last boot.';
   popUp('rtherror');
 });
 
