@@ -86,6 +86,12 @@ client.connect(err => {
             io.to(uid.uid).emit('rError');
         });
 
+        //handle error - Return function can not be executed (no takeoff coordinates)
+        socket.on('returnToTakeoffError', (uid) => {
+            //send it to room
+            io.to(uid.uid).emit('rTakeoffError');
+        });
+
         //handle mission output
         socket.on('missionOut', (mission) => {
             //send it to the room the user's Сlover is connected to
