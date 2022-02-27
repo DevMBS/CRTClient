@@ -83,9 +83,10 @@ At the top of the website is the status of your drone (Disconnected/Connected, d
 ## <a name="mobile"></a> Mobile Version
 <br/>
 The mobile version of the site has absolutely the same functionality (swipe to the right/left to move between control panels).<br/><br/>
-
+<p float = "left">
 <img src='./assets/readme/m1.jpg' width= '200px'>
 <img src='./assets/readme/m2.jpg' width= '200px'>
 <img src='./assets/readme/m3.jpg' width= '200px'>
 <img src='./assets/readme/m4.jpg' width= '200px'>
 <img src='./assets/readme/m5.jpg' width= '200px'>
+</p>
