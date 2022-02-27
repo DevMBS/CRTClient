@@ -59,6 +59,7 @@ body{
     top: 150vh;
     text-align:center;
     font-family: 'Roboto', sans-serif;
+    width: 100%;
 }
 #mb2{
     position: absolute;
