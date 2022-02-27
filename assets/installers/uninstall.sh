@@ -2,7 +2,7 @@
 
 clear && echo -e "\v\033[31mThis program started deleting RescueClover software from your drone. Continue? (y/n): \v\033[0m"
 read answer
-if [$answer == y]
+if [ $answer == y ]
 then
 pm2 stop /var/www/CRTClover/server.js
 pm2 unstartup
@@ -14,7 +14,7 @@ else
 sudo env PATH=$PATH:/usr/local/bin /usr/local/lib/node_modules/pm2/bin/pm2 unstartup systemd -u $USER --hp /home/$USER
 fi
 echo 'Complete.'
-elif [$answer == n]
+elif [ $answer == n ]
 then
 echo 'Stopped.'
 fi
