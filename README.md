@@ -8,9 +8,9 @@ Clover Rescue Team - When something went wrong.
 ### The list of team members:
 
 Кирилл Лещинский, [@k_leshchinskiy](https://t.me/k_leshchinskiy) - TeamLead.<br/>
-Кузнецов Михаил, [@fletchling_dev](https://t.me/fletchling_dev) - Software developer.<br/>
-Роман Сибирцев, [@r_sibirtsev](https://t.me/r_sibirtsev) - Tech Specialist/Python programmer.<br/>
-Даниил Валишин, [@Astel_1](https://t.me/Astel_1) - Hardware engineer/tester.
+Кузнецов Михаил, [@fletchling_dev](https://t.me/fletchling_dev) - Software Developer.<br/>
+Роман Сибирцев, [@r_sibirtsev](https://t.me/r_sibirtsev) - Tech Specialist/Python Programmer.<br/>
+Даниил Валишин, [@Astel_1](https://t.me/Astel_1) - Hardware Engineer/Tester.
 
 # Project description
 
