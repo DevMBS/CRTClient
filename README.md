@@ -1,16 +1,16 @@
 # The Clover Rescue Project
 
 [CopterHack-2022](copterhack2022.md), 
-Clover Rescue Team - When something went wrong
+Clover Rescue Team - When something went wrong.
 
 ## Team information
 
 ### The list of team members:
 
-Кирилл Лещинский, [@k_leshchinskiy](https://t.me/k_leshchinskiy) - TeamLead<br/>
-Кузнецов Михаил, [@fletchling_dev](https://t.me/fletchling_dev) - Software developer<br/>
-Роман Сибирцев, [@r_sibirtsev](https://t.me/r_sibirtsev) - Tech Specialist/Python programmer<br/>
-Даниил Валишин, [@Astel_1](https://t.me/Astel_1) - Hardware engineer/tester
+Кирилл Лещинский, [@k_leshchinskiy](https://t.me/k_leshchinskiy) - TeamLead.<br/>
+Кузнецов Михаил, [@fletchling_dev](https://t.me/fletchling_dev) - Software developer.<br/>
+Роман Сибирцев, [@r_sibirtsev](https://t.me/r_sibirtsev) - Tech Specialist/Python programmer.<br/>
+Даниил Валишин, [@Astel_1](https://t.me/Astel_1) - Hardware engineer/tester.
 
 # Project description
 
@@ -54,7 +54,7 @@ Firstly, users need to register on our website.
 <img src='./assets/readme/signup.png'><br/><br/>
 After registration the main control panel and installation instructions open.
 
-## <a name="oi"></a> Installation Instructions
+## <a name="ii"></a> Installation Instructions
 
 First, you need to connect to your Clover via SSH and paste the command indicated in the instructions that opened (if it is not open, you can open it by clicking on the "Instructions" button). The command looks like that:<br/>
 <code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh #UID</code><br/>
@@ -70,7 +70,7 @@ On the website there are several commands for controlling the drone. “Get phot
 <img src='./assets/readme/allsettings.png'><br/><br/>
 In the settings users can set speed and altitude of the return.<br/>
 <img src='./assets/readme/s1.png'><br/><br/>
-Users can choose an action after return (hover or land)<br/>
+Users can choose an action after return (hover or land).<br/>
 <img src='./assets/readme/s2.png'><br/><br/>
 ...And the place where the drone will return (User coordinates or takeoff coordinates).<br/>
 <img src='./assets/readme/s3.png'><br/><br/>
