@@ -16,7 +16,7 @@ sudo mkdir /var/www/
 sudo mv CRTClover /var/www/
 sudo mv ./login.txt /var/www/CRTClover
 echo -e "\v\033[35mInstalling required npm modules...\v\033[0m"
-cd /var/www/CRTClover && sudo npm install --save child_process roslib fs socket.io-client && cd -
+cd /var/www/CRTClover && sudo npm install && cd -
 echo -e "\v\033[35mSetting up the Rescue Clover server process manager...\v\033[0m"
 sudo chmod 777 /var/www/CRTClover/
 sudo npm install pm2@latest -g
