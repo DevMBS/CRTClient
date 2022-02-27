@@ -164,30 +164,21 @@ const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
     tileSize: 512,
     zoomOffset: -1
 }).addTo(map);
-//get user location
-const options = {
-    enableHighAccuracy: true,
-    timeout: 10000,
-    maximumAge: 0
-};
-function success(pos) {
-  const crd = pos.coords;
-  map.setView([crd.latitude, crd.longitude], 30);
-  //setiting 'you' marker on map and getting user coords
-  usermarker = L.marker([crd.latitude, crd.longitude]).addTo(map);
-  usermarker.bindPopup("You");
-};
-function error(err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-};
-navigator.geolocation.getCurrentPosition(success, error, options);
-
 //enable user position tracking
+let gpsc = 0;
 map.locate({
   watch: true,
   enableHighAccuracy: true
 }).on('locationfound', (e) => {
-  usermarker.setLatLng([e.latitude, e.longitude]);
+  if(gpsc == 0){
+    map.setView([e.latitude, e.longitude], 30);
+    usermarker = L.marker([e.latitude, e.longitude]).addTo(map);
+    usermarker.bindPopup("You");
+    gpsc++;
+  }
+  else{
+    usermarker.setLatLng([e.latitude, e.longitude]);
+  }
 });
 
 //upload mission button onclick
@@ -246,27 +237,21 @@ $("#gp").click(function() {
 //return button onclick
 $("#rtp").click(function() {
   //if user has not changed the return settings
-  if(localStorage.getItem('rtowarnclosed') == null){
+  if(!localStorage.getItem('rtowarnclosed')){
     popUp('rtowarn');
   }
   else{
     //if user choosed 'return to my coordinates'
     if(localStorage.getItem('returnto') == 'mycoords'){
       //get user coordinates
-      const options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-      };
-      function success(pos) {
-        const crd = pos.coords;
-        //send return request to the server
-        socket.emit('req', {body: 'returnToHome', data: {to: 'user', lat: crd.latitude, lon: crd.longitude, alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
-      };
-      function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-      };
-      navigator.geolocation.getCurrentPosition(success, error, options);
+      let gpsc = 0;
+      map.locate({enableHighAccuracy: true}).on('locationfound', (e) => {
+        if(gpsc == 0){
+          //send request to the server
+          socket.emit('req', {body: 'returnToHome', data: {to: 'user', lat: e.latitude, lon: e.longitude, alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
+          gpsc++;
+        }
+      });
     }
     //if user choosed 'return to the drone takeoff place' (coordinates of the first arming with gps)
     else{
