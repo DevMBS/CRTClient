@@ -1,11 +1,28 @@
 {
   "dependencies": {
-    "body-parser": "^1.19.1",
     "express": "^4.17.2",
     "http": "^0.0.1-security",
     "mongodb": "^4.3.0",
     "pidcrypt": "^0.0.32",
     "random-org": "^2.2.0",
     "socket.io": "^4.4.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "crtclient",
+  "description": "The Clover Rescue Project",
+  "version": "0.0.1",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevMBS/CRTClient.git"
+  },
+  "author": "DevMBS (Mikhail Kuznetsov)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DevMBS/CRTClient/issues"
+  },
+  "homepage": "https://github.com/DevMBS/CRTClient#readme"
 }
