@@ -14,7 +14,7 @@ window.onload = function(){
 }
 
 //switch to mobile version on orientation change
-let switchToMobileVersionInterval = setInterval(function(){if(window.innerWidth<window.innerHeight){location.href="../mobile/index.html"}}, 500);
+let switchToMobileVersionInterval = setInterval(function(){if(screen.width<screen.height){location.href="../mobile/index.html"}}, 500);
 
 //three.js import
 import * as THREE from '../../assets/three.js';
