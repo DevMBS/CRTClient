@@ -10,10 +10,6 @@ window.onload = function(){
     TweenMax.to('.pace', 0.7, {opacity: 0});
     setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
 }
-
-//switch to the mobile/desktop version on orientation change
-let checkOrientationInterval = setInterval(()=>{if(screen.width<screen.height){let mobile = document.createElement('link');mobile.href = 'mobile.css';mobile.rel = 'stylesheet';mobile.id='mobilecss';document.getElementsByTagName('head')[0].appendChild(mobile)}else if(window.innerWidth>window.innerHeight && document.querySelector('#mobilecss')){document.querySelector('#mobilecss').remove()}}, 500);
-
 //sign in button onclick
 function signin(){
     //hide button
