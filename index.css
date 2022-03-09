@@ -115,21 +115,24 @@ body{
     -moz-filter: brightness(40%);
     -o-filter: brightness(40%);
     -ms-filter: brightness(40%);
+    margin-top: 5%;
 }
 #mb2{
-    height: 35vw;
-    width: 30vw;
-    object-fit:contain;
-}
-#mb3{
-    height: 20vw;
+    height: 15vw;
     width: 20vw;
     object-fit:contain;
 }
-#mb4{
-    height: 40vw;
-    width: 30vw;
+#mb3{
+    height: 10vw;
+    width: 15vw;
     object-fit:contain;
+    transform: scale(1.5);
+}
+#mb4{
+    height: 20vw;
+    width: 15vw;
+    object-fit:contain;
+    transform: scale(1.5);
 }
 #rht{
     font-size: 4vw;
