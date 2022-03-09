@@ -1,5 +1,15 @@
 //initalizing the socket.io clientside library
 const socket = io();
+
+//fix css containers
+document.querySelector('#heading').style.height = window.innerHeight+'px';
+document.querySelector('#projectCont').style.height = window.innerHeight+'px';
+document.querySelector('#hardwareCont').style.height = window.innerHeight+'px';
+document.querySelector('#signupcont').style.height = window.innerHeight+'px';
+document.querySelector('#mb1').style.height = window.innerHeight+'px';
+document.querySelector('#background').style.height = window.innerHeight+'px';
+document.querySelector('#mb1').style.top = window.innerHeight*1.12+'px';
+
 //register the service worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/mobile/serviceworker.js');
