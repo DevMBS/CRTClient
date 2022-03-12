@@ -7,6 +7,17 @@ window.onload = function(){
     setTimeout(function(){document.getElementById('loading').style.display = 'none';document.getElementsByClassName('pace')[0].style.display = 'none';}, 700);
     TweenMax.to('#down', 0.6, {y:"-=20", yoyo:true, repeat:9999});
 }
+
+//fix elements
+document.getElementById("rpi").style.height = window.innerHeight*0.35+'px';
+document.getElementById("clover").style.height = window.innerHeight*0.29+'px';
+document.getElementById("title").style.height = window.innerHeight*0.9+'px';
+document.getElementById("projectContainer").style.height = window.innerHeight+'px';
+document.getElementById("hardwareContainer").style.height = window.innerHeight*0.7+'px';
+document.getElementById("signupContainer").style.height = window.innerHeight+'px';
+document.getElementById("clover").style.top += window.innerHeight*0.71+'px';
+
+
 //switch to the desktop version on orientation change
 let switchToDesktopVersionInterval = setInterval(function(){if(window.innerWidth>window.innerHeight){location.href="../"}}, 500);
 //register service worker
@@ -58,10 +69,10 @@ function signup(){
 socket.on('signupres', (res) => {
     //if error
     if(res.body == 'error'){
-        document.querySelector('#signup').style.display = 'block';
         document.querySelector('#status').innerText = 'A user with this nickname already exist!';
         document.querySelector('#nickname').value = '';
         TweenMax.to('#nickname', 0.08, {x:"+=20", yoyo:true, repeat:5});
+        setTimeout(()=>{document.querySelector('#signup').removeAttribute('disabled')}, 600);
     }
     //if user has been added to the database
     else if(res.body == 'successful'){

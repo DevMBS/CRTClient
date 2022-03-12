@@ -17,20 +17,33 @@
         <link rel ="stylesheet" href="../loading-bar.css">
     </head>
     <body>
-        <img src = "../assets/rpi4.png" id = "rpi" alt='rpi4' alt='rpi4'/>
+        <img src = "../assets/rpi4.png" id = "rpi" alt='rpi4'/>
         <img id = "clover" src = "../assets/head.jpg" alt='clover'/>
-        <div id = 'title'><h1>The<br/>Clover Rescue<br/>Project</h1></div>
-        <button id = 'app' onclick = "location.href = '../app/mobile/index.html'">App</button><button id = 'signin' onclick = "location.href = '../login/index.html'">Sign In</button>
+        <div id="header">
+            <button id = 'app' onclick = "location.href = '../app/mobile/index.html'">App</button>
+            <button id = 'signin' onclick = "location.href = '../login/index.html'">Sign In</button>
+        </div>
+        <div id = 'title'><h1>The<br/>Clover Rescue<br/>Project</h1></div><br><br>
         <div id = "footer"><img src = "../assets/line-angle-down.svg" id = "down" alt='down'/></div>
         <div id = "main">
-            <p id = 'pt'>Project</p><p id = 'p'>You can manage your Clover from anywhere in the world!<br/><br/>- Replaces FTP and SSH <br/>- Your drone can be returned to your coordinates or takeoff coordinates with just one click. <br/>- You can monitor the status of your drone in realtime<br/>- Useful functions: Land; Hover; Disarm</p>
-            <p id = "rht">Required Hardware</p><p id = "rh">The all you need - Raspberry Pi 3/4, camera and USB WIFI Modem! </p>
-            <p id = 'rt' >Sign up</p><br/><p id = 'rt2'>to access the software</p>
-            <input placeholder='Nickname' id = 'nickname'/>
-            <input placeholder='Password' id = 'password' type='password'/>
-            <button id = 'signup' onclick = 'signup();'>Sign Up</button>
-            <p id = 'status'></p>
-            <p id = 'floor'>Clover Rescue Team | CopterHack 2022</p>
+            <div id="projectContainer">
+                <p id = 'pt'>Project</p><br>
+                <p id = 'p'>You can manage your Clover from anywhere in the world!<br/><br/>
+                    - Replaces FTP and SSH <br/>- Your drone can be returned to your coordinates or takeoff coordinates with just one click. <br/>
+                    - You can monitor the status of your drone in realtime<br/>
+                    - Useful functions: Land; Hover; Disarm</p>
+            </div>
+            <div id="hardwareContainer">
+                <p id = "rht">Required Hardware</p><br>
+                <p id = "rh">The all you need - Raspberry Pi 3/4, camera and USB WIFI Modem! </p>
+            </div>
+            <div id="signupContainer">
+                <p id = 'rt' >Sign up</p><br/><p id = 'rt2'>to access the software</p>
+                <input placeholder='Nickname' id = 'nickname'/>
+                <input placeholder='Password' id = 'password' type='password'/>
+                <button id = 'signup' onclick = 'signup();'>Sign Up</button>
+                <p id = 'status'></p>
+            </div>
         </div>
         <div id = 'loading'><img src = '../assets/logo_x192.svg' id='loadingLogo' alt='loading...'/></div>
         <script src = 'index.js'></script>

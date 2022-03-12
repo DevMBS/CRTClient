@@ -9,34 +9,43 @@ body{
 }
 #rpi{
     position: absolute;
-    height: 35vh;
     width: 100%;
     filter: brightness(30%) blur(5px);
     object-fit:cover;
+    z-index: -1;
+}
+#clover{
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    filter: brightness(30%) blur(5px);
+    object-fit:none;
 }
 #title{
-    position: absolute;
-    top: 3vh;
-    clip-path: polygon(0% 0%, 100% 20%, 100% 100%, 0% 80%);
-    background-color: #111;
-    width: 100%;
-    height: 90vh;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 0.5vh;
-    text-align: center;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 3vh;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-#clover{
-    position: absolute;
-    top: 71%;
+    clip-path: polygon(0% 0%, 100% 20%, 100% 100%, 0% 80%);
+    background-color: #111;
     width: 100%;
-    height: 25vh;
-    filter: brightness(30%) blur(5px);
-    object-fit:cover;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 3vh;
+}
+#signin, #app{
+    border: none;
+    width: 50%;
+    font-size: 2.5vh;
+    outline:none;
+    color: rgb(255, 239, 215);
+    background-color: #111;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding: 1% 15px;
+    display: inline;
+}
+#app{
+    float: right;
 }
 #down{
     filter: invert(100%);
@@ -49,56 +58,51 @@ body{
     top: 98%;
 }
 p{
-    position: absolute;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
     text-align: center;
+}
+#projectContainer, #hardwareContainer{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
 }
 #pt{
     font-family: 'Quicksand', sans-serif;
     font-size: 5vh;
-    top: 120%;
 }
 #p{
     font-size: 2vh;
     font-family: 'Roboto', sans-serif;
-    top: 170%;
     background-color: #111;
     clip-path: polygon(0% 0%, 100% 20%, 100% 100%, 0% 80%);
-    height: 30vh;
-    padding-top: 30%;
-    padding-bottom: 30%;
-    padding-left: 1%;
-    padding-right: 1%;
+    padding: 40% 1%;
     text-align: left;
 }
 
 #rht{
     font-size: 3.5vh;
     font-family: 'Quicksand', sans-serif;
-    top: 220%;
 }
 #rh{
     font-size: 2vh;
     font-family: 'Roboto', sans-serif;
-    top: 260%;
-    width: 100%;
     background-color: #111;
-    padding-top: 30%;
-    padding-bottom: 30%;
-    padding-left: 1%;
-    padding-right: 1%;
+    padding: 30% 1%;
 }
 #rt{
     font-size: 5vh;
     font-family: 'Quicksand', sans-serif;
-    top: 320%;
 }
 #rt2{
     font-size: 4vh;
     font-family: 'Quicksand', sans-serif;
-    top: 330%;
+}
+#signupContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
 }
 input, #signup{
     outline:none;
@@ -109,65 +113,17 @@ input, #signup{
     background-color: black;
     border-radius: 50px;
     width: 80vw;
-    position: absolute;
-    font-size: 3.5vh;
+    font-size: 7vw;
     font-family: 'Roboto', sans-serif;
-    padding-left: 15px;
-    padding-right: 15px;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
     text-align: center;
-    padding-top: 2%;
-    padding-bottom: 2%;
-}
-#nickname{
-    top: 360%;
-}
-#password{
-    top: 375%;
-}
-#signup{
-    top: 390%;
+    padding: 2% 15px;
+    margin-top: 4vh;
 }
 #status{
-    position: absolute;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
     text-align: center;
-    top: 400%;
     font-size: 1.9vh;
     color: red;
     font-family: 'Roboto', sans-serif;
-}
-#floor{
-    position: absolute;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    top: 420%;
-    font-size: 1.4vh;
-    font-family: 'Roboto', sans-serif;
-}
-#signin, #app{
-    border: none;
-    width: 50%;
-    font-size: 2.5vh;
-    outline:none;
-    color: rgb(255, 239, 215);
-    background-color: #111;
-    position: absolute;
-    font-family: 'Roboto', sans-serif;
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: center;
-    padding-top: 1%;
-    padding-bottom: 1%;
-}
-#app{
-    right: 0;
 }
 #loading{
     position: fixed;
