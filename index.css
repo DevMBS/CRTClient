@@ -52,7 +52,6 @@ body{
     -webkit-filter: grayscale(10%) brightness(20%) blur(5px);
     -moz-filter: grayscale(10%) brightness(20%) blur(5px);
     -o-filter: grayscale(10%) brightness(20%) blur(5px);
-    -ms-filter: grayscale(10%) brightness(20%) blur(5px);
     position: absolute;
     top: 0;
     left: 0;
@@ -77,7 +76,6 @@ body{
     -webkit-filter: grayscale(10%) brightness(20%) blur(7px);
     -moz-filter: grayscale(10%) brightness(20%) blur(7px);
     -o-filter: grayscale(10%) brightness(20%) blur(7px);
-    -ms-filter: grayscale(10%) brightness(20%) blur(7px);
     left: 0;
     z-index:-1;
     margin: 0;
@@ -114,7 +112,6 @@ body{
     -webkit-filter: brightness(40%);
     -moz-filter: brightness(40%);
     -o-filter: brightness(40%);
-    -ms-filter: brightness(40%);
     margin-top: 5%;
 }
 #mb2{

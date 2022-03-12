@@ -15,7 +15,7 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/mobile/serviceworker.js');
 }
 //close preloader on page load
-window.onload = function(){
+window.onload = () => {
     //GSAP animation (dissolve block)
     TweenMax.to('#loading', 0.7, {opacity: 0});
     TweenMax.to('.pace', 0.7, {opacity: 0});
