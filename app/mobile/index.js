@@ -3,6 +3,7 @@
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/mobile/serviceworker.js');
 }
+//fix swiper height
 document.getElementsByClassName('swiper')[0].style.height = window.innerHeight*0.8+'px';
 //hide preloader on window load
 window.onload = function(){
@@ -174,33 +175,35 @@ if(localStorage.getItem('cloverside') == null){
 }
 
 //close instructions
-$("#closecloverside").click(function() {
-  close('cloverside');
-});
+  document.getElementById("closecloverside").addEventListener("click", ()=>{
+    close('cloverside');
+  });
 
 
 //upload mission button 
-$('#mission').change(function() {
-  if ($(this).val() != '') $(this).prev().text('Mission: ' + $(this)[0].files[0].name);
-  else $(this).prev().text('Choose code file');
-});
-$('#ub').click(function(){
-  let file = document.getElementById("mission").files[0];
-  if (file) {
-    //read file contents
-    fileReader.readAsText(file, "UTF-8");
-    fileReader.onload = function(evt) {
-        //send file contents to the server
+  document.getElementById("mission").addEventListener("change", ()=>{
+    if (document.getElementById("mission").value != '') document.getElementById("fl").innerText = 'Mission: ' + document.getElementById("mission").files[0].name;
+    else document.getElementById("fl").innerText = 'Choose code';
+  });
+  document.getElementById("ub").addEventListener("click", ()=>{
+    //get file
+    let file = document.getElementById("mission").files[0];
+    if (file) {
+      //read it's contents
+      fileReader.readAsText(file, "UTF-8");
+      fileReader.onload = function(evt) {
+        //send content to the server
         socket.emit('newMission', evt.target.result);
         document.getElementById('ub').innerText = 'Running...';
-        setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run';document.getElementById('fl').innerText = 'Choose code file';}, 1000);
+        setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run';document.getElementById('fl').innerText = 'Choose code';}, 1000);
+      }
     }
-  }
-  //if upload button was pressed without choosing a file
-  else{
-    document.getElementById('ub').innerText = 'Please choose code file to upload!';
-  }
-});
+    //if upload button was pressed without choosing a file
+    else{
+      document.getElementById('ub').innerText = 'Choose file!';
+      setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run'}, 1000);
+    }
+  });
 
 //handle mission output
 socket.on('missionOutput', (mission) => {
@@ -222,47 +225,46 @@ socket.on('missionOutput', (mission) => {
 });
 
 //close mission output
-$("#closemissionOut").click(function() {
-  close('missionOut');
-});
+  document.getElementById("closemissionOut").addEventListener("click", ()=>{
+    close('missionOut');
+  });
 
 //send photo button onclick
-$("#gp").click(function() {
-  socket.emit('req', {body: 'photo'});
-});
+  document.getElementById("gp").addEventListener("click", ()=>{
+    socket.emit('req', {body: 'photo'});
+  });
 
 //return button onclick
-$("#rtp").click(function() {
-  //if user has not changed the return to operator settings
-  if(localStorage.getItem('rtowarnclosed') == null){
-    popUp('rtowarn');
-  }
-  else{
-    //if user choosed 'return to my coordinates'
-    if(localStorage.getItem('returnto') == 'mycoords'){
-      //get user's position
-      let gpsc = 0;
-      map.locate({enableHighAccuracy: true}).on('locationfound', (e) => {
-        if(gpsc == 0){
-          //send request to the server
-          socket.emit('req', {body: 'returnToHome', data: {to: 'user', lat: e.latitude, lon: e.longitude, alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
-          gpsc++;
-        }
-      });
+  document.getElementById("rtp").addEventListener("click", ()=>{
+    //if user has not changed the return settings
+    if(!localStorage.getItem('rtowarnclosed')){
+      popUp('rtowarn');
     }
     else{
-      //if user choosed 'return to drone takeoff coordinates (coordinates of the first arm with gps)
-      //send request to the server
-      socket.emit('req', {body: 'returnToHome', data: {to: 'takeoff', alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
+      //if user choosed 'return to my coordinates'
+      if(localStorage.getItem('returnto') == 'mycoords'){
+        //get user coordinates
+        let gpsc = 0;
+        map.locate({enableHighAccuracy: true}).on('locationfound', (e) => {
+          if(gpsc == 0){
+            //send request to the server
+            socket.emit('req', {body: 'returnToHome', data: {to: 'user', lat: e.latitude, lon: e.longitude, alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
+            gpsc++;
+          }
+        });
+      }
+      //if user chose 'return to the drone takeoff place' (coordinates of the first arming with gps)
+      else{
+        socket.emit('req', {body: 'returnToHome', data: {to: 'takeoff', alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
+      }
     }
-  }
-});
+  });
 
 //close return warn
-$("#closertowarn").click(function() {
-  localStorage.setItem('rtowarnclosed', ' ');
-  close('rtowarn');
-});
+  document.getElementById("closertowarn").addEventListener("click", ()=>{
+    localStorage.setItem('rtowarnclosed', ' ');
+    close('rtowarn');
+  });
 
 //handle return function errors
 socket.on('rError', function(){
@@ -276,34 +278,31 @@ socket.on('rTakeoffError', function(){
 
 
 //close return error
-$("#closertherror").click(function() {
-  close('rtherror');
-});
+  document.getElementById("closertherror").addEventListener("click", ()=>{
+    close('rtherror');
+  });
 
 //close gps error
-$("#closegpswarn").click(function() {
-  sessionStorage.setItem('gpswarnclosed', ' ');
-  close('gpswarn');
-});
+  document.getElementById("closegpswarn").addEventListener("click", ()=>{
+    sessionStorage.setItem('gpswarnclosed', ' ');
+    close('gpswarn');
+  });
 
 
 //land button onclick
-$("#l").click(function() {
-  //send land request to the server
-  socket.emit('req', {body: 'land'});
-});
+  document.getElementById("l").addEventListener("click", ()=>{
+    socket.emit('req', {body: 'land'});
+  });
 
 //hover button onclick
-$("#h").click(function() {
-  //send hover request to the server
-  socket.emit('req', {body: 'hover'});
-});
+  document.getElementById("h").addEventListener("click", ()=>{
+    socket.emit('req', {body: 'hover'});
+  });
 
-//reboot button onclick
-$("#r").click(function() {
-  //send disarm request to the server
-  socket.emit('req', {body: 'disarm'});
-});
+//disarm button onclick
+  document.getElementById("r").addEventListener("click", ()=>{
+    socket.emit('req', {body: 'disarm'});
+  });
 
 
 
@@ -331,56 +330,53 @@ if(localStorage.getItem('speed') != null){
 }
 
 //save settings button onclick
-$('#savesettings').click(function() {
-  //set return alt and speed to the local storage
-  localStorage.setItem('alt', document.getElementById('rtosalt').value);
-  localStorage.setItem('speed', document.getElementById('rtosspeed').value);
-
-  //set action after return to the local storage
-  let action;
-  if(document.getElementById('action').value == 1){
-    action = 'hover';
-  }
-  else{
-    action = 'land';
-  }
-  localStorage.setItem('action', action);
-
-  //set a place to return to the local storage
-  let returnto;
-  if(document.getElementById('returnto').value == 1){
-    returnto = 'mycoords';
-  }
-  else{
-    returnto = 'takeoffcoords';
-  }
-  localStorage.setItem('returnto', returnto);
-
-  //enable auto photo requesting
-  let autophoto;
-  if(document.getElementById('atp').value == 1){
-    autophoto = 'never';
-  }
-  else if(document.getElementById('atp').value == 2){
-    autophoto = 30000;
-  }
-  else if(document.getElementById('atp').value == 3){
-    autophoto = 60000;
-  }
-  else if(document.getElementById('atp').value == 4){
-    autophoto = 300000;
-  }
-  if(autophoto != 'never'){
-    autophotointerval = setInterval(getautophoto, autophoto);
-  }
-  else{
-    try {
-      clearInterval(autophotointerval);
-    } catch(e) {}
-  }
-  document.getElementById('savesettings').innerText = 'Saved!';
-  setTimeout(function(){document.getElementById('savesettings').innerText = 'Save'}, 400);
-});
+  document.getElementById("savesettings").addEventListener("click", ()=>{
+    //save altitude and speed of return
+    localStorage.setItem('alt', document.getElementById('rtosalt').value);
+    localStorage.setItem('speed', document.getElementById('rtosspeed').value);
+    //save action after return
+    let action;
+    if(document.getElementById('action').value == 1){
+      action = 'hover';
+    }
+    else{
+      action = 'land';
+    }
+    localStorage.setItem('action', action);
+    //save return place
+    let returnto;
+    if(document.getElementById('returnto').value == 1){
+      returnto = 'mycoords';
+    }
+    else{
+      returnto = 'takeoffcoords';
+    }
+    localStorage.setItem('returnto', returnto);
+    //enable auto photo requesting
+    let autophoto;
+    if(document.getElementById('atp').value == 1){
+      autophoto = 'never';
+    }
+    else if(document.getElementById('atp').value == 2){
+      autophoto = 30000;
+    }
+    else if(document.getElementById('atp').value == 3){
+      autophoto = 60000;
+    }
+    else if(document.getElementById('atp').value == 4){
+      autophoto = 300000;
+    }
+    if(autophoto != 'never'){
+      autophotointerval = setInterval(getautophoto, autophoto);
+    }
+    else{
+      try {
+        clearInterval(autophotointerval);
+      } catch(e) {}
+    }
+    document.getElementById('savesettings').innerText = 'Saved!';
+    setTimeout(function(){document.getElementById('savesettings').innerText = 'Save'}, 400);
+  });
 
 //setting up the drone marker on the map
 let dronemarker;
