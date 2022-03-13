@@ -48,6 +48,11 @@ function signin(){
         }
     }
 }
+document.addEventListener('keydown', (e)=>{
+    if(e.key == "Enter"){
+        signin();
+    }
+});
 //handle sign in response
 socket.on('signinres', (res) => {
     //if wrong nickname
