@@ -83,6 +83,11 @@ function signup(){
         }
     }
 }
+document.addEventListener('keydown', (e)=>{
+    if(e.key == "Enter"){
+        signup();
+    }
+});
 //handle sign up response from the server
 socket.on('signupres', (res) => {
     //if error
