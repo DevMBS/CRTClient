@@ -1,3 +1,7 @@
+//get api keys and links
+//to start the server type in the console: node server.js <random org api key> <mongoDB database link>
+const randomOrgAPIKey = process.argv[2];
+const mongoDBLink = process.argv[3];
 //imports
 //express - standart framework for building NodeJS web apps
 const express = require("express");
@@ -12,11 +16,10 @@ require("pidcrypt/aes_cbc");
 const aes = new pidCrypt.AES.CBC();
 //random.org api
 const RandomOrg = require('random-org');
-const random = new RandomOrg({ apiKey: '#Enter there your random-org api key#' });
+const random = new RandomOrg({ apiKey: randomOrgAPIKey });
 //to store usernames, passwords and UIDs I will use MongoDB database
 const { MongoClient } = require('mongodb');
-const uri = "#Enter there adress to your MongoDB Database#";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(mongoDBLink, { useNewUrlParser: true, useUnifiedTopology: true });
 //setting up express framework
 app.use(express.static(__dirname));
 
