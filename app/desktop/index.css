@@ -56,12 +56,25 @@ button{
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-#ct{
+#account{
+    display: flex;
+    flex-direction: column;
     position: absolute;
+    right: 0;
+    top:0;
+}
+#ct{
     font-family: 'Quicksand', sans-serif;
     font-size: 2.5vw;
-    top: 0%;
-    right: 2%;
+    text-align: right;
+    width: 100%;
+}
+#status{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.6vw;
+    text-align: right;
+    margin-top:0%;
+    width: 100%;
 }
 #clover3dview{
     position: absolute;
@@ -69,14 +82,6 @@ button{
     top: 0%;
     width: 40%;
     height: 40%;
-}
-#status{
-    position: absolute;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1.6vw;
-    top: 11%;
-    right: 3%;
-    text-align: right;
 }
 #alt{
     position: absolute;
@@ -90,10 +95,22 @@ button{
     right: 0%;
     height: 60%;
     width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+#rtp, #l, #r, #h, #settings{
+    position: relative;
+    margin-top: 10%;
+}
+#rtp, #r{
+    margin-left:2%;
+}
+#lrt, #hr{
+    width: 100%;
+    display: flex;
+    flex-wrap:nowrap
 }
 #rtp{
-    
-    right: 0;
     width: 49%;
     border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
 }
@@ -102,20 +119,16 @@ button{
     border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
 }
 #r{
-    top: 12vh;
-    right: 0;
     width: 49%;
     text-align: center;
     border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
 }
 #h{
-    top: 12vh;
     width: 49%;
     text-align: center;
     border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
 }
 #settings{
-    top: 24vh;
     width: 100%;
     border-image-source: linear-gradient(to left, #3ad0d5, #d53a9d);
 }
@@ -140,7 +153,6 @@ button{
     margin-left: auto;
     display: block;
     outline: none;
-    background-color:#111;
     cursor: pointer;
     color: rgb(255, 239, 215);
     font-family: 'Roboto', sans-serif;
@@ -157,7 +169,6 @@ button{
     font-size: 2.3vw;
 }
 #ub{
-    width: 100%;
     position: relative;
     margin-right: auto;
     margin-left: auto;

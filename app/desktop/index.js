@@ -37,6 +37,14 @@ if(uid == null){
 else{
   //send user's uid to the server
   socket.emit('uid', uid);
+  socket.on('nickname', (user)=>{
+    if(user.nickname.length < 15){
+      document.getElementById('ct').innerText = user.nickname;
+    }
+    else{
+      document.getElementById('ct').innerText = user.nickname.substring(0, 15)+'...';
+    }
+  })
 }
 
 
