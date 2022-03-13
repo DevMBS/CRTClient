@@ -12,10 +12,10 @@ require("pidcrypt/aes_cbc");
 const aes = new pidCrypt.AES.CBC();
 //random.org api
 const RandomOrg = require('random-org');
-const random = new RandomOrg({ apiKey: '' });
+const random = new RandomOrg({ apiKey: '#Enter there your random-org api key#' });
 //to store usernames, passwords and UIDs I will use MongoDB database
 const { MongoClient } = require('mongodb');
-const uri = "";
+const uri = "#Enter there adress to your MongoDB Database#";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //setting up express framework
 app.use(express.static(__dirname));
