@@ -12,10 +12,10 @@ require("pidcrypt/aes_cbc");
 const aes = new pidCrypt.AES.CBC();
 //random.org api
 const RandomOrg = require('random-org');
-const random = new RandomOrg({ apiKey: '#Enter there your random-org api key#' });
+const random = new RandomOrg({ apiKey: '' });
 //to store usernames, passwords and UIDs I will use MongoDB database
 const { MongoClient } = require('mongodb');
-const uri = "#Enter there adress to your MongoDB Database#";
+const uri = "";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //setting up express framework
 app.use(express.static(__dirname));
@@ -101,8 +101,11 @@ client.connect(err => {
         //handle client connection
         //when client opens the page, the clientside script sends user's uid (saved in LocalStorage) to the server
         socket.on('uid', (uid)=>{
-            //
             socket.join(uid);
+            (async () => {
+                let user = await findOne(users, {uid: uid});
+                io.to(uid).emit('nickname', {nickname: user.nickname});
+            })()
             //handle requests from client and send them to clover
             socket.on('req', (req)=>{
                 if(req.body == 'land'){
