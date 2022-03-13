@@ -22,7 +22,7 @@ import * as THREE from '../../assets/three.js';
 import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
 //the model of Clover is compressed (6mb -> 168kb), so we need the draco decoder to correctly display it
 import {DRACOLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/DRACOLoader.js';
-//initalize decoders
+//initialize decoders
 DRACOLoader.setDecoderPath( '/assets/draco_decoder.js' );
 //sockets init
 const socket = io();
@@ -153,11 +153,11 @@ if(localStorage.getItem('cloverside') == null){
   popUp('cloverside');
 }
 
-//close instructions
-$("#getInstructions").click(function() {
-  document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo chmod 777 ./uninstall.sh && ./uninstall.sh</code>";
-  popUp('cloverside');
-});
+//open instructions
+  document.getElementById("getInstructions").addEventListener("click", ()=>{
+    document.getElementById('cloversidetext').innerHTML = "Welcome to the Clover Rescue Project website!<br/><br/>Install our software on your drone by running the following command:<br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh "+uid+"</code><br/><br/>When everything succesfully installed, you will see the 'Connected' status on this page!<br/><br/>If you want to uninstall CloverRescue Project software from your drone, run this command: <br/><code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/uninstall.sh && sudo chmod 777 ./uninstall.sh && ./uninstall.sh</code>";
+    popUp('cloverside');
+  });
 document.getElementById('settingslist').style.display = 'none';
 //map properties
 const resizemap = setInterval(function(){
@@ -190,28 +190,28 @@ map.locate({
 });
 
 //upload mission button onclick
-$('#mission').change(function() {
-  if ($(this).val() != '') $(this).prev().text('Mission: ' + $(this)[0].files[0].name);
-  else $(this).prev().text('Choose code');
-});
-$('#ub').click(function(){
-  //get choosed file
-  let file = document.getElementById("mission").files[0];
-  if (file) {
-    //read it's contents
-    fileReader.readAsText(file, "UTF-8");
-    fileReader.onload = function(evt) {
+  document.getElementById("mission").addEventListener("change", ()=>{
+    if (document.getElementById("mission").value != '') document.getElementById("fl").innerText = 'Mission: ' + document.getElementById("mission").files[0].name;
+    else document.getElementById("fl").innerText = 'Choose code';
+  });
+  document.getElementById("ub").addEventListener("click", ()=>{
+    //get file
+    let file = document.getElementById("mission").files[0];
+    if (file) {
+      //read it's contents
+      fileReader.readAsText(file, "UTF-8");
+      fileReader.onload = function(evt) {
         //send content to the server
         socket.emit('newMission', evt.target.result);
         document.getElementById('ub').innerText = 'Running...';
         setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run';document.getElementById('fl').innerText = 'Choose code';}, 1000);
+      }
     }
-  }
-  //if upload button was pressed without choosing a file
-  else{
-    document.getElementById('ub').innerText = 'Please choose code file to upload!';
-  }
-});
+    //if upload button was pressed without choosing a file
+    else{
+      document.getElementById('ub').innerText = 'Please choose code file to upload!';
+    }
+  });
 
 //handle mission output
 socket.on('missionOutput', (mission) => {
@@ -233,39 +233,39 @@ socket.on('missionOutput', (mission) => {
 });
 
 //close mission output
-$("#closemissionOut").click(function() {
+document.getElementById("closemissionOut").addEventListener("click", ()=>{
   close('missionOut');
 });
 
 //send photo button onclick
-$("#gp").click(function() {
+document.getElementById("gp").addEventListener("click", ()=>{
   socket.emit('req', {body: 'photo'});
 });
 
 //return button onclick
-$("#rtp").click(function() {
-  //if user has not changed the return settings
-  if(!localStorage.getItem('rtowarnclosed')){
-    popUp('rtowarn');
-  }
-  else{
-    //if user choosed 'return to my coordinates'
-    if(localStorage.getItem('returnto') == 'mycoords'){
-      //get user coordinates
-      let gpsc = 0;
-      map.locate({enableHighAccuracy: true}).on('locationfound', (e) => {
-        if(gpsc == 0){
-          //send request to the server
-          socket.emit('req', {body: 'returnToHome', data: {to: 'user', lat: e.latitude, lon: e.longitude, alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
-          gpsc++;
-        }
-      });
+document.getElementById("rtp").addEventListener("click", ()=>{
+    //if user has not changed the return settings
+    if(!localStorage.getItem('rtowarnclosed')){
+      popUp('rtowarn');
     }
-    //if user choosed 'return to the drone takeoff place' (coordinates of the first arming with gps)
     else{
-      socket.emit('req', {body: 'returnToHome', data: {to: 'takeoff', alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
+      //if user choosed 'return to my coordinates'
+      if(localStorage.getItem('returnto') == 'mycoords'){
+        //get user coordinates
+        let gpsc = 0;
+        map.locate({enableHighAccuracy: true}).on('locationfound', (e) => {
+          if(gpsc == 0){
+            //send request to the server
+            socket.emit('req', {body: 'returnToHome', data: {to: 'user', lat: e.latitude, lon: e.longitude, alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
+            gpsc++;
+          }
+        });
+      }
+      //if user chose 'return to the drone takeoff place' (coordinates of the first arming with gps)
+      else{
+        socket.emit('req', {body: 'returnToHome', data: {to: 'takeoff', alt: parseFloat(localStorage.getItem('alt')), speed: localStorage.getItem('speed'), action: localStorage.getItem('action')}});
+      }
     }
-  }
 });
 
 //handle return function errors
@@ -279,29 +279,30 @@ socket.on('rTakeoffError', function(){
 });
 
 //land onclick
-$("#l").click(function() {
-  socket.emit('req', {body: 'land'});
-});
+  document.getElementById("l").addEventListener("click", ()=>{
+    socket.emit('req', {body: 'land'});
+  });
 
 //hover onclick
-$("#h").click(function() {
-  socket.emit('req', {body: 'hover'});
-});
+  document.getElementById("h").addEventListener("click", ()=>{
+    socket.emit('req', {body: 'hover'});
+  });
+
 
 //reboot onclick
-$("#r").click(function() {
-  socket.emit('req', {body: 'disarm'});
-});
+  document.getElementById("r").addEventListener("click", ()=>{
+    socket.emit('req', {body: 'disarm'});
+  });
 
 //open settings
-$('#settings').click(function() {
-  popUp('settingslist');
-});
+  document.getElementById("settings").addEventListener("click", ()=>{
+    popUp('settingslist');
+  });
 
 //close settings
-$("#closesettings").click(function() {
-  close('settingslist');
-});
+  document.getElementById("closesettings").addEventListener("click", ()=>{
+    close('settingslist');
+  });
 
 //automatically take photos
 function getautophoto(){
@@ -326,75 +327,75 @@ if(localStorage.getItem('speed') != null){
 }
 
 //save settings button onclick
-$('#savesettings').click(function() {
-  //save altitude and speed of return
-  localStorage.setItem('alt', document.getElementById('rtosalt').value);
-  localStorage.setItem('speed', document.getElementById('rtosspeed').value);
-  //save action after return
-  let action;
-  if(document.getElementById('action').value == 1){
-    action = 'hover';
-  }
-  else{
-    action = 'land';
-  }
-  localStorage.setItem('action', action);
-  //save return place
-  let returnto;
-  if(document.getElementById('returnto').value == 1){
-    returnto = 'mycoords';
-  }
-  else{
-    returnto = 'takeoffcoords';
-  }
-  localStorage.setItem('returnto', returnto);
-  //enable auto photo requesting
-  let autophoto;
-  if(document.getElementById('atp').value == 1){
-    autophoto = 'never';
-  }
-  else if(document.getElementById('atp').value == 2){
-    autophoto = 30000;
-  }
-  else if(document.getElementById('atp').value == 3){
-    autophoto = 60000;
-  }
-  else if(document.getElementById('atp').value == 4){
-    autophoto = 300000;
-  }
-  if(autophoto != 'never'){
-    autophotointerval = setInterval(getautophoto, autophoto);
-  }
-  else{
-    try {
-      clearInterval(autophotointerval);
-    } catch(e) {}
-  }
-  document.getElementById('savesettings').innerText = 'Saved!';
-  setTimeout(function(){document.getElementById('savesettings').innerText = 'Save'}, 400);
-});
+  document.getElementById("savesettings").addEventListener("click", ()=>{
+    //save altitude and speed of return
+    localStorage.setItem('alt', document.getElementById('rtosalt').value);
+    localStorage.setItem('speed', document.getElementById('rtosspeed').value);
+    //save action after return
+    let action;
+    if(document.getElementById('action').value == 1){
+      action = 'hover';
+    }
+    else{
+      action = 'land';
+    }
+    localStorage.setItem('action', action);
+    //save return place
+    let returnto;
+    if(document.getElementById('returnto').value == 1){
+      returnto = 'mycoords';
+    }
+    else{
+      returnto = 'takeoffcoords';
+    }
+    localStorage.setItem('returnto', returnto);
+    //enable auto photo requesting
+    let autophoto;
+    if(document.getElementById('atp').value == 1){
+      autophoto = 'never';
+    }
+    else if(document.getElementById('atp').value == 2){
+      autophoto = 30000;
+    }
+    else if(document.getElementById('atp').value == 3){
+      autophoto = 60000;
+    }
+    else if(document.getElementById('atp').value == 4){
+      autophoto = 300000;
+    }
+    if(autophoto != 'never'){
+      autophotointerval = setInterval(getautophoto, autophoto);
+    }
+    else{
+      try {
+        clearInterval(autophotointerval);
+      } catch(e) {}
+    }
+    document.getElementById('savesettings').innerText = 'Saved!';
+    setTimeout(function(){document.getElementById('savesettings').innerText = 'Save'}, 400);
+  });
 
 //close 'no gps' warning
-$("#closegpswarn").click(function() {
-  sessionStorage.setItem('gpswarnclosed', ' ');
-  close('gpswarn');
-});
+  document.getElementById("closegpswarn").addEventListener("click", ()=>{
+    sessionStorage.setItem('gpswarnclosed', ' ');
+    close('gpswarn');
+  });
 
 //close return warning
-$("#closertowarn").click(function() {
-  localStorage.setItem('rtowarnclosed', ' ');
-  close('rtowarn');
-});
+  document.getElementById("closertowarn").addEventListener("click", ()=>{
+    localStorage.setItem('rtowarnclosed', ' ');
+    close('rtowarn');
+  });
 
 //close instructions
-$("#closecloverside").click(function() {
-  close('cloverside');
-});
+  document.getElementById("closecloverside").addEventListener("click", ()=>{
+    close('cloverside');
+  });
 
 //close RTH function error
-$("#closertherror").click(function() {
-  close('rtherror');
-});
+  document.getElementById("closertherror").addEventListener("click", ()=>{
+    close('rtherror');
+  });
 
 //set up drone marker
 let dronemarker;
