@@ -5,6 +5,7 @@ if ('serviceWorker' in navigator) {
 }
 //set default status color
 document.querySelector('#status').style.color = 'red';
+document.getElementById("mission").value = null;
 
 //hide preloader on window load
 window.onload = function(){
@@ -209,7 +210,8 @@ map.locate({
     }
     //if upload button was pressed without choosing a file
     else{
-      document.getElementById('ub').innerText = 'Please choose code file to upload!';
+      document.getElementById('ub').innerText = 'Choose file!';
+      setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run'}, 1000);
     }
   });
 
