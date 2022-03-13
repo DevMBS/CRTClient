@@ -3,6 +3,7 @@
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/mobile/serviceworker.js');
 }
+document.getElementsByClassName('swiper')[0].style.height = window.innerHeight*0.8+'px';
 //hide preloader on window load
 window.onload = function(){
   TweenMax.to('#loading', 0.7, {opacity: 0});

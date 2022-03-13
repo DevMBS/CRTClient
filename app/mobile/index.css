@@ -9,13 +9,16 @@ body{
 .swiper {
   position: absolute;
   width: 93vw;
-  height: 80vh;
   margin-top: 10%;
 }
 .swiper-slide {
   color:rgb(255, 239, 215);
   background-color: rgba(32, 32, 32, 0.452);
   border-radius: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 #clover3dview{
   filter: blur(3px);
@@ -26,12 +29,12 @@ body{
   top: 20vh;
   width: 80vw;
   height: 40vh;
+  z-index:-1;
 }
 #status{
-  position: absolute;
-  top: -1.5%;
-  left: 0.5%;
-  font-size: 2.3vh;
+  margin-top: 1%;
+  margin-left: 1%;
+  font-size:4.5vw;
 }
 input{
   outline: none;
@@ -45,112 +48,127 @@ button{
   border-image-slice: 1;
   padding: 4%;
   background-color: #111;
-  font-size: 3vh;
+  font-size: 5.5vw;
+}
+#rtp, #r{
+  margin-left:2%;
+}
+
+#lrt, #hr{
+  width: 100%;
+  display: flex;
+  flex-wrap:nowrap;
+}
+#hr{
+  margin-top: 5%;
+}
+#lrt{
+  margin-top: 50%;
 }
 #l{
-  position:absolute;
-  top: 40vh;
   width: 49%;
   border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
 }
 #r{
-  position:absolute;
-  top: 40vh;
   width: 49%;
   text-align: center;
-  right: 0%;
   border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
 }
 #h{
-  position:absolute;
-  top: 50vh;
   width: 49%;
   text-align: center;
   border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
 }
 #rtp{
-  position:absolute;
-  top: 50vh;
   width: 49%;
-  right: 0%;
   border-image-source: linear-gradient(to left, #3ad0d5, #743ad5);
 }
 #pt{
+  margin-top: 10%;
   font-family: 'Quicksand', sans-serif;
-  position: absolute;
-  top: 15vh;
-  font-size: 2.3vh;
+  font-size: 4vw;
+}
+#photocont{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 #gp{
-  position: absolute;
-  top: 70vh;
   color: rgb(255, 239, 215);
   border-color: rgb(255, 239, 215);
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
 }
 #photoslide{
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+#photo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40vh;
+}
+#pfc{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+#snp{
+  font-size: 3.5vw;
 }
 #mission{
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
   overflow: hidden;
-  position: absolute;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+}
+#upload{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 #fl{
-  position: absolute;
-  top: 50vh;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
   outline: none;
   cursor: pointer;
   color: rgb(255, 239, 215);
   font-family: 'Roboto', sans-serif;
-  padding: 4%;
-  position: absolute;
-  font-size: 3vh;
+  padding: 6% 4%;
+  font-size: 5.5vw;
   background: linear-gradient(to top right, #3ad0d5, #d53a9d);
-  width: 80vw;
   text-align: center;
+  width: 70vw;
+  margin-top: 30%;
 }
 #ut{
-  position: absolute;
   font-family: 'Quicksand', sans-serif;
-  font-size: 3vh;
-  left: 50%;
-  top: 25vh;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+  font-size: 6vw;
 }
 #ub{
-  position: absolute;
-  top: 70vh;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
   border-image-source: linear-gradient(to bottom right, #3ad0d5, #d53a9d);
-  width: 80vw;
+  width: 76vw;
+  margin-top:-1%;
+  padding: 6% 4%;
 }
-
+#settingsContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 #st{
-  text-align: center;
-  font-size: 3vh;
+  font-size: 6vw;
 }
 #rtost{
-  font-size: 2.3vh;
-  padding-left: 10px;
+  font-size: 5vw;
+  width: 100%;
 }
 #rtos{
-  font-size: 2vh;
+  font-size: 4vw;
+  width: 100%;
   margin-left: 10%;
 }
 #rtos input{
@@ -159,7 +177,7 @@ button{
   background-color: #111;
   border: none;
   outline: none;
-  font-size: 2vh;
+  font-size: 4vw;
 }
 select{
   background-color: #111;
@@ -170,25 +188,20 @@ select{
   cursor: pointer;
 }
 #gphst{
-  font-size: 2.3vh;
-  padding-left: 10px;
+  font-size: 5vw;
+  width: 100%;
 }
 #gphs{
-  font-size: 2vh;
-  margin-left: 10%;
+  font-size: 4vw;
 }
 #savesettings{
-  position: absolute;
-  top: 70vh;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
   width: 30vw;
   border-style:solid;
   border-width: 0.5vh;
   border-color: #8c35ff;
   padding: 1%;
-  font-size: 2.4vh;
+  font-size: 4.5vw;
+  margin-top: 15%;
 }
 #loading{
   position: fixed;
@@ -213,9 +226,6 @@ select{
 #map{
   width: 98%;
   margin-top: 35vh;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
 }
 .warn{
   z-index: 3000;
@@ -269,18 +279,6 @@ select{
   font-size: 1.9vh;
   color:rgb(255, 239, 215);
   font-family: 'Roboto', sans-serif;
-}
-#pfc{
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-}
-#photo{
-  width: 100%;
-  height: 40vh;
-}
-#snp{
-  font-size: 1.8vh;
 }
 #gpswarn{
   height: 50vh;

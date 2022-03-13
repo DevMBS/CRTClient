@@ -22,20 +22,31 @@
         <link rel ="stylesheet" href="../../loading-bar.css">
     </head>
     <body>
+        <p id = 'status'>Disconnected</p>
         <canvas id='clover3dview'></canvas>
         <div class = "swiper container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <button id = 'l'>Land</button>
-                    <button id = 'rtp'>Return</button><br/><br/>
-                    <button id = 'h'>Hover</button>
-                    <button id = 'r'>Disarm</button>
+                    <div id="lrt">
+                        <button id = 'l'>Land</button>
+                        <button id = 'rtp'>Return</button>
+                    </div>
+                    <div id="hr">
+                        <button id = 'h'>Hover</button>
+                        <button id = 'r'>Disarm</button>
+                    </div>
                 </div>
                 <div class="swiper-slide">
                     <div id = 'map'></div>
                 </div>
                 <div class="swiper-slide" id = 'photoslide'>
-                    <p id = 'pt' align="center">LAST PHOTO FROM CLOVER</p><div id='photocont'><div id="photo"><br/><br/><br/><p id = 'snp' align="center">There is no data fetched.</p></div><button id = 'gp' >Get photo</button></div>
+                    <p id = 'pt'>LAST PHOTO FROM CLOVER</p>
+                    <div id='photocont'>
+                        <div id="photo">
+                            <p id = 'snp'>There is no data fetched.</p>
+                        </div>
+                        <button id = 'gp' >Get photo</button>
+                    </div>
                 </div>
                 <div class="swiper-slide">
                     <div id = 'upload'>
@@ -43,10 +54,12 @@
                         <label for = "mission" id = "fl">Choose code file</label>
                         <input type = "file" id = "mission" name = "mission" accept="text/x-python, .py"/>
                         <button id = 'ub'>Upload & Run</button>
-                    </div></div>
+                    </div>
+                </div>
                 <div class="swiper-slide">
-                    <p id = 'st'>Settings</p>
-                    <p id = 'rtost'>Return To Operator:</p>
+                    <div id="settingsContainer">
+                        <p id = 'st'>Settings</p>
+                        <p id = 'rtost'>Return To Operator:</p>
                         <p id = 'rtos'>Altitude: <input id = 'rtosalt' placeholder = '10' maxlength="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>m
                             <br/>
                             Speed: <input id = 'rtosspeed' placeholder = '2' maxlength = '1' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>m/s
@@ -60,16 +73,17 @@
                                 <option id = 'rt2' value=2>Takeoff coordinates</option>
                             </select>
                         </p>
-                    <p id = 'gphst'>Get Photo:</p>
+                        <p id = 'gphst'>Get Photo:</p>
                         <p id = 'gphs'>
-                            Automatically take photos: <select id = 'atp'>
-                                <option id = 'gp1' selected='selected' value=1>Never</option>
-                                <option id = 'gp2' value=2>Every 30 s</option>
-                                <option id = 'gp3' value=3>Every 1 m</option>
-                                <option id = 'gp4' value=4>Every 5 m</option>
-                            </select>
+                            Automatically take photo <select id = 'atp'>
+                            <option id = 'gp1' selected='selected' value=1>Never</option>
+                            <option id = 'gp2' value=2>Every 30 s</option>
+                            <option id = 'gp3' value=3>Every 1 m</option>
+                            <option id = 'gp4' value=4>Every 5 m</option>
+                        </select>
                         </p>
-                    <button id = 'savesettings'>Save</button>
+                        <button id = 'savesettings'>Save</button>
+                    </div>
                 </div>
               </div>
         </div>
@@ -78,7 +92,6 @@
         <div id = 'rtowarn' class = 'warn'><p class = 'warntext'>Please check parameters in settings, such as 'Return Type', 'Return Altitude', 'Return Speed' and 'Action After Return' in order for this function to execute as you need.</p><img class='close' id='closertowarn' src = '../../assets/close.png'/></div>
         <div id = 'gpswarn' class = 'warn'><p id = 'gpswarntext' class = 'warntext'>You can't use Return' function and monitor coordinates of your Clover, because it's gps module has not caught enough satellites, or you are not using EKF2, also check the settings of your flight controller, following the <a href = 'https://clover.coex.tech/en/gps.html'>instructions</a>.<br/>If everything works correctly, then just wait a bit, when your drone catches a sufficient number of satellites, it's marker will be displayed on the map.</p><img class='close' id='closegpswarn' src = '../../assets/close.png'/></div>
         <div class = 'warn' id = 'cloverside'><p id = 'cloversidetext' class = 'warntext'> </p><img class='close' id='closecloverside' src = '../../assets/close.png'/></div>
-        <p id = 'status'>Disconnected</p>
         <p id="alt"></p><p id="volt"></p>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <div id = 'loading'><img src = '../../assets/logo_x192.svg' id='loadingLogo'/></div>
