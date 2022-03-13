@@ -87,10 +87,10 @@ function signup(){
 socket.on('signupres', (res) => {
     //if error
     if(res.body == 'error'){
-        document.querySelector('#signup').style.display = 'block';
         document.querySelector('#status').innerText = 'A user with this nickname already exist!';
         document.querySelector('#nickname').value = '';
         TweenMax.to('#nickname', 0.08, {x:"+=20", yoyo:true, repeat:5});
+        setTimeout(()=>{document.querySelector('#signup').removeAttribute('disabled')}, 600);
     }
     //if user has been added to the database
     else if(res.body == 'successful'){
