@@ -107,7 +107,9 @@ client.connect(err => {
             socket.join(uid);
             (async () => {
                 let user = await findOne(users, {uid: uid});
-                io.to(uid).emit('nickname', {nickname: user.nickname});
+                if(user) {
+                    io.to(uid).emit('nickname', {nickname: user.nickname});
+                }
             })()
             //handle requests from client and send them to clover
             socket.on('req', (req)=>{
