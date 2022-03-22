@@ -196,6 +196,7 @@ button{
     font-size: 1.5vw;
     border-image-source: linear-gradient(to bottom right, #3ad0d5, #d53a9d);
     width: 35.7%;
+    height: 18%;
 }
 #volt{
     position: absolute;

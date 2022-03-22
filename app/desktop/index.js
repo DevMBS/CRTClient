@@ -206,7 +206,7 @@ map.locate({
         //send content to the server
         socket.emit('newMission', evt.target.result);
         //animation
-        document.getElementById('ub').innerHTML = '<img src="../../assets/uploading.svg" id="uploadImg"/>';
+        document.getElementById('ub').innerHTML = '<img src="../../assets/uploading.svg" id="uploadImg" alt="uploading..."/>';
         TweenLite.to('#uploadImg', 0.4, {opacity: '1'});
         setTimeout(()=>{
           TweenLite.to('#uploadImg', 1, {rotation: 720, transformOrigin:"center"});
@@ -260,7 +260,7 @@ document.getElementById("gp").addEventListener("click", ()=>{
   document.querySelector('#gp').setAttribute('disabled', 'disabled');
   socket.emit('req', {body: 'photo'});
   document.getElementById('gp').style.padding='0';
-  document.getElementById('gp').innerHTML = '<img src="../../assets/camera.svg" id="camera"/>'
+  document.getElementById('gp').innerHTML = '<img src="../../assets/camera.svg" id="camera" alt="waiting for photo..."/>'
   TweenMax.to('#camera', 0.6, {opacity: 1, yoyo:true, repeat:100});
 });
 
@@ -432,7 +432,7 @@ let vIcon = new L.Icon({
 
 //handle and display base64 image data from the server
 socket.on('photofromclover', (photo) => {
-  document.getElementById('photo').innerHTML = '<img src = "data:image/png;base64, '+photo+'" id = "pfc"/>';
+  document.getElementById('photo').innerHTML = '<img src = "data:image/png;base64, '+photo+'" id = "pfc" alt="photo from clover"/>';
   document.getElementById('gp').innerText='Get Photo';
   document.getElementById('gp').style.padding='1%';
   document.querySelector('#gp').removeAttribute('disabled');
