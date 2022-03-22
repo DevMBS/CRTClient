@@ -37,13 +37,13 @@ button{
     cursor: pointer;
     color: rgb(255, 239, 215);
     font-family: 'Roboto', sans-serif;
-    border: 10px solid;
     border-image-slice: 1;
     border-width: 0.3vw;
     padding: 4%;
     background-color: #111;
     position: absolute;
     font-size: 1.4vw;
+    display: inline-block;
 }
 #gp{
     padding: 1%;
@@ -55,6 +55,11 @@ button{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+}
+#camera{
+    opacity: 0;
+    width: 2vw;
+    height: 2vw;
 }
 #account{
     display: flex;
@@ -100,7 +105,17 @@ button{
 }
 #rtp, #l, #r, #h, #settings{
     position: relative;
+    overflow: hidden;
     margin-top: 10%;
+}
+.withripple {
+    background-position: center;
+    transition: background 0.8s;
+}
+.withripple:active {
+    background-color: rgba(113, 113, 113, 0.32);
+    background-size: 100%;
+    transition: background 0s;
 }
 #rtp, #r{
     margin-left:2%;
@@ -108,7 +123,7 @@ button{
 #lrt, #hr{
     width: 100%;
     display: flex;
-    flex-wrap:nowrap
+    flex-wrap:nowrap;
 }
 #rtp{
     width: 49%;
@@ -161,6 +176,11 @@ button{
     background: linear-gradient(to top right, #3ad0d5, #d53a9d);
     width: 27.8%;
     text-align: center;
+}
+#uploadImg{
+    opacity: 0;
+    width: 2.5vw;
+    height: 2.5vw;
 }
 #ut{
     text-align: center;
