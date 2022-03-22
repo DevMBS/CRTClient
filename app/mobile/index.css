@@ -50,6 +50,15 @@ button{
   background-color: #111;
   font-size: 5.5vw;
 }
+.withripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.withripple:active {
+  background-color: rgba(113, 113, 113, 0.32);
+  background-size: 100%;
+  transition: background 0s;
+}
 #rtp, #r{
   margin-left:2%;
 }
@@ -97,6 +106,12 @@ button{
 #gp{
   color: rgb(255, 239, 215);
   border-color: rgb(255, 239, 215);
+  width: 50%;
+}
+#camera{
+  opacity: 0;
+  width: 10vw;
+  height: 10vw;
 }
 #photoslide{
   display: flex;
@@ -152,6 +167,11 @@ button{
   width: 76vw;
   margin-top:-1%;
   padding: 6% 4%;
+}
+#uploadImg{
+  opacity: 0;
+  width: 10vw;
+  height: 10vw;
 }
 #settingsContainer{
   display: flex;

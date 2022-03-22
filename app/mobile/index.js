@@ -189,13 +189,29 @@ if(localStorage.getItem('cloverside') == null){
     //get file
     let file = document.getElementById("mission").files[0];
     if (file) {
-      //read it's contents
+      document.querySelector('#ub').setAttribute('disabled', 'disabled');
+      //read its contents
       fileReader.readAsText(file, "UTF-8");
       fileReader.onload = function(evt) {
         //send content to the server
         socket.emit('newMission', evt.target.result);
-        document.getElementById('ub').innerText = 'Running...';
-        setTimeout(function(){document.getElementById('ub').innerText = 'Upload & Run';document.getElementById('fl').innerText = 'Choose code';}, 1000);
+        //animation
+        document.getElementById('ub').innerHTML = '<img src="../../assets/uploading.svg" id="uploadImg"/>';
+        TweenLite.to('#uploadImg', 0.4, {opacity: '1'});
+        setTimeout(()=>{
+          TweenLite.to('#uploadImg', 1, {rotation: 720, transformOrigin:"center"});
+          setTimeout(()=>{
+            TweenLite.to('#uploadImg', 0.3, {opacity: 0});
+            setTimeout(()=>{
+              document.getElementById('ub').innerHTML = '✓';
+              setTimeout(()=>{
+                document.getElementById('ub').innerText = 'Upload & Run';
+                document.getElementById('fl').innerText = 'Choose code';
+                document.getElementById("mission").value = null;
+                document.querySelector('#ub').removeAttribute('disabled')}, 300);
+            }, 600);
+          }, 300);
+        }, 400);
       }
     }
     //if upload button was pressed without choosing a file
@@ -231,7 +247,11 @@ socket.on('missionOutput', (mission) => {
 
 //send photo button onclick
   document.getElementById("gp").addEventListener("click", ()=>{
+    document.querySelector('#gp').setAttribute('disabled', 'disabled');
     socket.emit('req', {body: 'photo'});
+    document.getElementById('gp').style.padding='0';
+    document.getElementById('gp').innerHTML = '<img src="../../assets/camera.svg" id="camera"/>'
+    TweenMax.to('#camera', 0.6, {opacity: 1, yoyo:true, repeat:100});
   });
 
 //return button onclick
@@ -390,9 +410,11 @@ let vIcon = new L.Icon({
 });
 
 //handle base64 image data from server
-socket.on('photofromclover', (photo) => { 
-  //display it
+socket.on('photofromclover', (photo) => {
   document.getElementById('photo').innerHTML = '<img src = "data:image/png;base64, '+photo+'" id = "pfc"/>';
+  document.getElementById('gp').innerText='Get Photo';
+  document.getElementById('gp').style.padding='1%';
+  document.querySelector('#gp').removeAttribute('disabled');
 });
 
 //handle telemetry stream from server
