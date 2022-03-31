@@ -96,7 +96,7 @@ The mobile version of the site has absolutely the same functionality (swipe to t
 
 ## <a name="bots"></a> Bots on the social networks and messengers
 <br/>
-Bots on the social networks is an example of what you can do based on our project. They has the main functionality of our website and The Clover Rescue Team is still working on their features.<br/><br/>
+Bots on the social networks is an example of what you can do based on our project. They have the main functionality of our website and The Clover Rescue Team is still working on their features.<br/><br/>
 
 <p float = "left">
 <img src='./assets/readme/bot3.jpg' width= '200px'>
