@@ -113,7 +113,7 @@ A bots on the social networks is an example of what you can do based on our proj
 
 ## <a name="plans"></a> Our plans for the future
 <br/>
-We do not plan to stop and want to continue the development.Here is a list of what will be added:<br/><br/>
+We do not plan to stop and want to continue the development. Here is a list of what will be added:<br/><br/>
 <p>1. Built-in code editor.</p>
 <p>2. More drone control bots in social networks and messengers.</p>
 <p>3. Socket API will be written so users can create their applications in different programming languages based on our app.</p>
