@@ -1,35 +1,35 @@
 # The Clover Rescue Project
 
 [CopterHack-2022](copterhack2022.md), 
-Clover Rescue Team - When something went wrong.
+Clover Rescue Team - When something went wrong
 
 ## Team information
 
 ### The list of team members:
 
-Кирилл Лещинский, [@k_leshchinskiy](https://t.me/k_leshchinskiy) - TeamLead.<br/>
-Кузнецов Михаил, [@fletchling_dev](https://t.me/fletchling_dev) - Software Developer.<br/>
-Роман Сибирцев, [@r_sibirtsev](https://t.me/r_sibirtsev) - Tech Specialist/Python Programmer.<br/>
-Даниил Валишин, [@Astel_1](https://t.me/Astel_1) - Hardware Engineer/Tester.
+Кирилл Лещинский, [@k_leshchinskiy](https://t.me/k_leshchinskiy) - TeamLead<br/>
+Кузнецов Михаил, [@fletchling_dev](https://t.me/fletchling_dev) - Software developer<br/>
+Даниил Валишин, [@Astel_1](https://t.me/Astel_1) - Tech Specialist/Python programmer<br/>
+Роман Сибирцев, [@r_sibirtsev](https://t.me/r_sibirtsev) - Hardware engineer/tester
 
 # Project description
 
 ### Table of contents:
-1.	[Idea](#idea)
-2.	[How it works](#hiw)
-3.	[Required hardware](#rh)
-4.	[Operating Instructions](#oi)
-5.	[Installation instructions](#ii)
-6.	[Work example/functions](#functions)
-7.	[Settings](#settings)
-8.	[Mobile version](#mobile)
+1. [Idea](#idea)
+2. [How it works](#hiw)
+3. [Required hardware](#rh)
+4. [Operating Instructions](#oi)
+5. [Installation instructions](#ii)
+6. [Work example/functions](#functions)
+7. [Settings](#settings)
+8. [Mobile version](#mobile)
+9. [Bots](#bots)
+10. [Our plans for the future](#plans)
 <br/><br/>
 ## <a name="idea"></a> Project Idea
 
 The idea of this project came immediately, it lies on the surface. A system that makes situations where pilots cannot find their flown away drone or stop it at full speed flying into a wall, a thing of the past, is something that pilots have been missing for a long time.
-The key feature of our software is that users can manage their Clover from anywhere in the world, this software replaces FTP and SSH (users can upload the code to their drone and run it directly from our site). Also, if radio communication with the Clover is lost, it can be returned to the user's or takeoff location with just one click. Moreover, the user can monitor the status in realtime, as well as location, camera data, and airborne position data of the drone. There are also functions that can be useful in emergency situations, such as landing, hovering and disarming the drone remotely from our website. A mobile version of the site with full functionality is also available!
-<br/>
-Demo video: https://youtu.be/jjeBh1ch4Xo, Link to the website: https://48c5-94-29-124-254.eu.ngrok.io/
+The key feature of our software is that users can manage their Clover from anywhere in the world, this software replaces FTP and SSH (users can upload the code to their drone and run it directly from our site). Also, if radio communication with the Clover is lost, it can be returned to the user's or takeoff location with just one click. Moreover, the user can monitor the status in realtime, as well as location, camera data, and airborne position data of the drone. There are also functions that can be useful in emergency situations, such as landing, hovering and disarming the drone remotely from our website. A mobile version of the site with full functionality is also available! 
 <br/><br/><br/>
 <img src='./assets/readme/mockup.png'>
 
@@ -56,7 +56,7 @@ Firstly, users need to register on our website.
 <img src='./assets/readme/signup.png'><br/><br/>
 After registration the main control panel and installation instructions open.
 
-## <a name="ii"></a> Installation Instructions
+## <a name="oi"></a> Installation Instructions
 
 First, you need to connect to your Clover via SSH and paste the command indicated in the instructions that opened (if it is not open, you can open it by clicking on the "Instructions" button). The command looks like that:<br/>
 <code>wget https://48c5-94-29-124-254.eu.ngrok.io/assets/installers/install.sh && sudo chmod 777 ./install.sh && ./install.sh #UID</code><br/>
@@ -72,7 +72,7 @@ On the website there are several commands for controlling the drone. “Get phot
 <img src='./assets/readme/allsettings.png'><br/><br/>
 In the settings users can set speed and altitude of the return.<br/>
 <img src='./assets/readme/s1.png'><br/><br/>
-Users can choose an action after return (hover or land).<br/>
+Users can choose an action after return (hover or land)<br/>
 <img src='./assets/readme/s2.png'><br/><br/>
 ...And the place where the drone will return (User coordinates or takeoff coordinates).<br/>
 <img src='./assets/readme/s3.png'><br/><br/>
@@ -85,6 +85,7 @@ At the top of the website is the status of your drone (Disconnected/Connected, d
 ## <a name="mobile"></a> Mobile Version
 <br/>
 The mobile version of the site has absolutely the same functionality (swipe to the right/left to move between control panels).<br/><br/>
+
 <p float = "left">
 <img src='./assets/readme/m1.jpg' width= '200px'>
 <img src='./assets/readme/m2.jpg' width= '200px'>
@@ -92,3 +93,28 @@ The mobile version of the site has absolutely the same functionality (swipe to t
 <img src='./assets/readme/m4.jpg' width= '200px'>
 <img src='./assets/readme/m5.jpg' width= '200px'>
 </p>
+
+## <a name="bots"></a> Bots on the social networks and messengers
+<br/>
+A bots on the social networks is an example of what you can do based on our project.This bot has the main functionality of our site and The Clover Rescue Team is still working on its features.<br/><br/>
+
+<p float = "left">
+<img src='./assets/readme/bot3.jpg' width= '200px'>
+<img src='./assets/readme/bot1.jpg' width= '200px'>
+<img src='./assets/readme/bot4.png' width= '200px'>
+<img src='./assets/readme/bot2.png' width= '200px'>
+<img src='./assets/readme/bot6.jpg' width= '200px'>
+<img src='./assets/readme/bot5.jpg' width= '290px'>
+<img src='./assets/readme/bot7.jpg' width= '288.5px'>
+</p>
+
+<a href="https://github.com/Astel2022/CRTVkbot">VK Bot Repository</a><br/>
+<a href="https://vk.com/rescueclover">Link to the bot</a>
+
+## <a name="plans"></a> Our plans for the future
+<br/>
+We do not plan to stop and want to continue the development.Here is a list of what will be added:<br/><br/>
+<p>1. Built-in code editor.</p>
+<p>2. More drone control bots in social networks and messengers.</p>
+<p>3. Socket API will be written so users can create their applications in different programming languages based on our app.</p>
+<p>4. Drone swarm controls.</p>
