@@ -229,3 +229,6 @@ input, button{
     top: 50%;
     box-shadow: 0px 0px 15px #111;
 }
+a{
+    color: rgb(255, 239, 215);
+}
